@@ -1,0 +1,116 @@
+@import 'reset.scss';
+
+@function px2rem($size, $context: 16px) {
+  @if (unitless($size)) {
+    $size: $size * 1px;
+  }
+
+  @if (unitless($context)) {
+    $context: $context * 1px;
+  }
+  @return ($size/$context) * 1rem;
+}
+
+.desktop {
+  @media screen and (max-width: 997px) {
+    display: none !important;
+  }
+}
+
+.mobile {
+  @media screen and (min-width: 998px) {
+    display: none !important;
+  }
+}
+
+html {
+  @media screen and (min-width: 1681px) {
+    font-size: 16px;
+  }
+  @media screen and (max-width: 1680px) and (min-width: 1441px) {
+    font-size: 15px;
+  }
+  @media screen and (max-width: 1440px) and (min-width: 1281px) {
+    font-size: 14px;
+  }
+  @media screen and (max-width: 1280px) and (min-width: 998px) {
+    font-size: 13px;
+  }
+  @media screen and (max-width: 997px) {
+    font-size: 16px;
+  }
+}
+
+body {
+  color: #000;
+  font-family: 'Open Sans';
+  font-size: px2rem(20);
+  overflow-x: hidden;
+}
+
+.grid {
+  @media screen and (min-width: 998px) {
+    max-width: px2rem(1712px);
+    padding: 0 px2rem(40px);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    column-gap: px2rem(16px);
+  }
+}
+
+.load-image {
+  opacity: 1;
+  //transition: opacity 0.3s;
+
+  &:not(.loaded) {
+    opacity: 0;
+  }
+}
+
+.input {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: px2rem(35);
+  label {
+    font-size: px2rem(20);
+    color: rgba(86, 86, 86, 0.8);
+    font-weight: 500;
+    margin: 0 0 px2rem(12px) px2rem(30px);
+  }
+  input,
+  textarea,
+  select {
+    height: px2rem(62px);
+    box-shadow: px2rem(13px) px2rem(9px) px2rem(35px) rgba(0, 0, 0, 0.13);
+    font-size: px2rem(20px);
+    color: #565656;
+    font-weight: 500;
+    padding: 0 px2rem(30px);
+    &::placeholder {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+  span {
+    position: absolute;
+    top: 100%;
+    left: px2rem(30px);
+    font-size: px2rem(12px);
+    color: red;
+  }
+  textarea {
+    padding: px2rem(20px) px2rem(30px);
+  }
+  @media screen and (min-width: 998px) {
+    textarea {
+      min-height: px2rem(280px);
+    }
+  }
+  @media screen and (max-width: 997px) {
+    textarea {
+      min-height: 180px;
+    }
+  }
+}
