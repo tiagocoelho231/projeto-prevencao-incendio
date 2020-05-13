@@ -54,7 +54,7 @@ export default function Login() {
     if (auth.user) {
       history.push('');
     }
-  }, [auth]);
+  }, [auth, history]);
 
   const formik = useFormik({
     initialValues: {

@@ -57,7 +57,7 @@ export default function Menu() {
     if (!auth.user) {
       history.push('/login');
     }
-  }, [auth]);
+  }, [auth, history]);
 
   return (
     <Wrapper>
