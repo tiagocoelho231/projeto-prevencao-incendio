@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@rematch/core": "^1.4.0",
+    "axios": "^0.19.2",
     "formik": "^2.1.4",
     "node-sass": "^4.14.0",
     "react": "^16.13.1",

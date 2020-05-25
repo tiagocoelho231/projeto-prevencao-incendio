@@ -43,7 +43,7 @@ module.exports = async (req, res) => {
       pixels[i++].push(color);
     });
 
-    res.send(pixels);
+    res.send({ data });
   } catch (error) {
     console.log('error', error);
     res.status(400).send(error);
