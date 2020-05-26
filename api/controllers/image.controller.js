@@ -1,5 +1,6 @@
 const getPixels = require('get-pixels');
 const { API } = require('../config');
+const fs = require('fs');
 
 async function asyncGetPixels(src) {
   return await new Promise((resolve, reject) => {
@@ -14,42 +15,59 @@ async function asyncGetPixels(src) {
 
 module.exports = async (req, res) => {
   try {
-    const data = await asyncGetPixels(`${API}/images/fogo1.png`);
-
-    const colors = [],
-      pixels = [];
-
-    for (let i = 0; i < data.data.length; i += 4) {
-      colors.push([
-        data.data[i],
-        data.data[i + 1],
-        data.data[i + 2],
-        data.data[i + 3]
-      ]);
-    }
-
-    let i = 0;
-
-    colors.forEach(color => {
-      if (i === data.shape[0]) {
-        i = 0;
-      }
-
-      if (!pixels[i]) {
-        pixels[i] = [];
-      }
-
-      pixels[i++].push(color);
-    });
-
     let red = 0;
-    for (const column of pixels) {
-      for (const pixel of column) {
-        if (pixel[0] > 190 && pixel[1] < 150 && pixel[2] < 150) {
-          red++;
-        }
+    fs.readdir(`./public/images/`, async function (err, files) {
+      if (err) {
+        return console.log('Unable to scan directory: ' + err);
       }
-    }
+      files.forEach(async function (file) {
+        if (file.slice(-3) !== 'png') {
+          return;
+        }
+          console.log(file);
+
+          const data = await asyncGetPixels(`${API}/images/${file}`);
+
+          const colors = [],
+            pixels = [];
+
+          for (let i = 0; i < data.data.length; i += 4) {
+            colors.push([
+              data.data[i],
+              data.data[i + 1],
+              data.data[i + 2],
+              data.data[i + 3]
+            ]);
+          }
+
+          let i = 0;
+
+          colors.forEach(color => {
+            if (i === data.shape[0]) {
+              i = 0;
+            }
+
+            if (!pixels[i]) {
+              pixels[i] = [];
+            }
+
+            pixels[i++].push(color);
+          });
+
+          for (const column of pixels) {
+            for (const pixel of column) {
+              if (pixel[0] > 190 && pixel[1] < 150 && pixel[2] < 150) {
+                red++;
+              }
+            }
+          }
+          console.log(red);
+
+          fs.rename(`./public/images/${file}`, `./public/images/read/${file}`, function (err) {
+            if (err) console.log('ERROR: ' + err);
+          });
+      });
+    });
 
     res.send({ image: `${API}/images/fogo1.png`, red });
   } catch (error) {
