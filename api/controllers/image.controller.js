@@ -14,7 +14,7 @@ async function asyncGetPixels(src) {
 module.exports = async (req, res) => {
   try {
     const data = await asyncGetPixels(
-      'https://previews.123rf.com/images/artshock/artshock1210/artshock121000046/15557821-imag-of-water-drops-on-window-and-blue-sky-background.jpg'
+      'https://i.ibb.co/9W0Nj2s/fogo1.png'
     );
 
     const colors = [],
