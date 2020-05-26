@@ -1,7 +1,7 @@
 import { createModel } from '@rematch/core';
 
 const initialState = {
-  user: null,
+  user: {},
   error: null,
   loading: false
 };
