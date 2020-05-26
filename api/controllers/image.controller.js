@@ -1,4 +1,5 @@
 const getPixels = require('get-pixels');
+const { API } = require('../config');
 
 async function asyncGetPixels(src) {
   return await new Promise((resolve, reject) => {
@@ -13,9 +14,7 @@ async function asyncGetPixels(src) {
 
 module.exports = async (req, res) => {
   try {
-    const data = await asyncGetPixels(
-      'https://i.ibb.co/9W0Nj2s/fogo1.png'
-    );
+    const data = await asyncGetPixels(`${API}/images/fogo1.png`);
 
     const colors = [],
       pixels = [];
@@ -43,7 +42,16 @@ module.exports = async (req, res) => {
       pixels[i++].push(color);
     });
 
-    res.send({ pixels });
+    let red = 0;
+    for (const column of pixels) {
+      for (const pixel of column) {
+        if (pixel[0] > 190 && pixel[1] < 150 && pixel[2] < 150) {
+          red++;
+        }
+      }
+    }
+
+    res.send({ image: `${API}/images/fogo1.png`, red });
   } catch (error) {
     console.log('error', error);
     res.status(400).send(error);

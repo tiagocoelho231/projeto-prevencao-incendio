@@ -4,10 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const Wrapper = styled.div`
   height: 100vh;
+  overflow: hidden;
   width: 100%;
 
   img {
-    height: 100%;
+    margin: 0 auto;
+    width: 100%;
   }
 `;
 
@@ -15,28 +17,15 @@ export default function Map() {
   const image = useSelector(({ image }) => image);
   const dispatch = useDispatch();
 
-  if(image.data){
-    var red = 0;
-    const pixels = image.data.pixels;
-    pixels.forEach(a => {
-      a.forEach(pixel => {
-        if (pixel[0] > 190 && pixel[1] < 150 && pixel[2] < 150) {
-            red++;
-        }
-      })
-    })
-    console.log(red);
-  }
-
   useEffect(() => {
     if (!image.data) {
       dispatch.image.fetch();
     }
-  }, []);
+  }, []); //eslint-disable-line react-hooks/exhaustive-deps
+
+  console.log('image', image);
 
   return (
-    <Wrapper>
-      <img src={require('../assets/map-placeholder.jpg')} alt="Mapa" />
-    </Wrapper>
+    <Wrapper>{image.data && <img src={image.data.image} alt="Mapa" />}</Wrapper>
   );
 }
