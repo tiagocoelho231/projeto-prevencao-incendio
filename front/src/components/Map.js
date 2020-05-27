@@ -26,6 +26,10 @@ export default function Map() {
   console.log('image', image);
 
   return (
-    <Wrapper>{image.data && <img src={image.data.image} alt="Mapa" />}</Wrapper>
+    <Wrapper>
+      {image.data && image.data.length > 0 && (
+        <img src={image.data[image.data.length - 1].image} alt="Mapa" />
+      )}
+    </Wrapper>
   );
 }

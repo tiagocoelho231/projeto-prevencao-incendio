@@ -15,35 +15,35 @@ async function asyncGetPixels(src) {
 
 module.exports = async (req, res) => {
   try {
-    let red = 0;
-    fs.readdir(`./public/images/`, async function (err, files) {
-      if (err) {
-        return console.log('Unable to scan directory: ' + err);
+    fs.readdir(`./public/images/`, async (error, files) => {
+      if (error) {
+        throw error;
       }
-      files.forEach(async function (file) {
-        if (file.slice(-3) !== 'png') {
-          return;
-        }
-          console.log(file);
 
-          const data = await asyncGetPixels(`${API}/images/${file}`);
+      filteredImages = files.filter(fileName => fileName.slice(-3) === 'png');
+
+      const data = await Promise.all(
+        await filteredImages.map(async fileName => {
+          let red = 0;
+
+          const imageData = await asyncGetPixels(`${API}/images/${fileName}`);
 
           const colors = [],
             pixels = [];
 
-          for (let i = 0; i < data.data.length; i += 4) {
+          for (let i = 0; i < imageData.data.length; i += 4) {
             colors.push([
-              data.data[i],
-              data.data[i + 1],
-              data.data[i + 2],
-              data.data[i + 3]
+              imageData.data[i],
+              imageData.data[i + 1],
+              imageData.data[i + 2],
+              imageData.data[i + 3]
             ]);
           }
 
           let i = 0;
 
           colors.forEach(color => {
-            if (i === data.shape[0]) {
+            if (i === imageData.shape[0]) {
               i = 0;
             }
 
@@ -61,15 +61,23 @@ module.exports = async (req, res) => {
               }
             }
           }
-          console.log(red);
 
-          fs.rename(`./public/images/${file}`, `./public/images/read/${file}`, function (err) {
-            if (err) console.log('ERROR: ' + err);
-          });
-      });
+          fs.rename(
+            `./public/images/${fileName}`,
+            `./public/images/read/${fileName}`,
+            error => {
+              if (error) {
+                throw error;
+              }
+            }
+          );
+
+          return { image: `${API}/images/read/${fileName}`, red };
+        })
+      );
+
+      res.send(data);
     });
-
-    res.send({ image: `${API}/images/fogo1.png`, red });
   } catch (error) {
     console.log('error', error);
     res.status(400).send(error);
