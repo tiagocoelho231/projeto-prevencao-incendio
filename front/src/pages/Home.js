@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Map, Menu } from '../components';
+import { Map, Menu, Clima } from '../components';
 
 const Page = styled.main`
   margin: 0 auto;
@@ -14,6 +14,7 @@ export default function Home() {
     <Page>
       <Map />
       <Menu />
+      <Clima />
     </Page>
   );
 }
