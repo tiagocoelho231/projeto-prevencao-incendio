@@ -18,13 +18,13 @@ export default function Map() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!image.data) {
+    if (!image.data.length) {
       dispatch.image.fetch();
     }
   }, []); //eslint-disable-line react-hooks/exhaustive-deps
 
   console.log('image', image);
-
+  
   return (
     <Wrapper>
       {image.data && image.data.length > 0 && (

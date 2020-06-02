@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
-import { px2rem } from '../util';
+import { px2rem, sm2ha } from '../util';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
 
@@ -59,10 +59,16 @@ export default function Menu() {
     }
   }, [auth, history]);
 
+  const image = useSelector(({image}) => image);
+
   return (
     <Wrapper>
       <h1>Mapa</h1>
       <Link to="/historico">Histórico de Queimadas</Link>
+      <div>
+    <p>Ha Total: { image.data.length > 0 ? sm2ha(image.data[image.data.length - 1].totalSquareMeters) : 0
+          }</p>
+      </div>
       <LogoutButton onClick={() => logout()} type="button">
         Sair
       </LogoutButton>
