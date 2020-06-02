@@ -5,7 +5,6 @@ import { Map, Menu } from '../components';
 
 const Page = styled.main`
   margin: 0 auto;
-  max-width: 1920px;
   position: relative;
 `;
 

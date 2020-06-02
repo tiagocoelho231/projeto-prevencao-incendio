@@ -8,6 +8,7 @@ const Wrapper = styled.div`
   position: relative;
 
   input {
+    border: ${px2rem(2)} solid #fff;
     border-radius: ${px2rem(8)};
     box-shadow: ${px2rem(2)} ${px2rem(3)} ${px2rem(10)} rgba(0, 0, 0, 0.1);
     height: ${px2rem(40)};
