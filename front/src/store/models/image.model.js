@@ -2,7 +2,7 @@ import { createModel } from '@rematch/core';
 import { API } from '../../config';
 
 const initialState = {
-  data: null,
+  data: [],
   error: null,
   loading: false
 };
@@ -10,7 +10,7 @@ const initialState = {
 export default createModel({
   state: initialState,
   reducers: {
-    fetchStart: () => ({ data: null, error: null, loading: true }),
+    fetchStart: () => ({ data: [], error: null, loading: true }),
     fetchSuccess: (state, data) => ({ ...state, data, loading: false }),
     fetchFail: (state, error) => ({ ...state, error, loading: false })
   },

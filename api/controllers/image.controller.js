@@ -25,8 +25,10 @@ module.exports = async (req, res) => {
       const data = await Promise.all(
         await filteredImages.map(async fileName => {
           let red = 0;
+          let totalSquareMeters = 0;
 
           const imageData = await asyncGetPixels(`${API}/images/${fileName}`);
+          const squareMetersPerPixel = 25;
 
           const colors = [],
             pixels = [];
@@ -58,6 +60,7 @@ module.exports = async (req, res) => {
             for (const pixel of column) {
               if (pixel[0] > 190 && pixel[1] < 150 && pixel[2] < 150) {
                 red++;
+                totalSquareMeters += squareMetersPerPixel;
               }
             }
           }
@@ -72,7 +75,11 @@ module.exports = async (req, res) => {
             }
           );
 
-          return { image: `${API}/images/read/${fileName}`, red };
+          return {
+            image: `${API}/images/read/${fileName}`,
+            red,
+            totalSquareMeters
+          };
         })
       );
 

@@ -1,46 +1,35 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
-import { px2rem } from '../util';
+import { px2rem, sm2ha } from '../util';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, Link } from 'react-router-dom';
-
-const Wrapper = styled.div`
-  align-items: center;
-  background-color: rgba(0, 0, 16, 0.9);
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  left: 0;
-  padding: ${px2rem(50)} ${px2rem(20)};
-  position: absolute;
-  top: 0;
-  width: ${px2rem(300)};
-
-  h1 {
-    text-align: center;
-  }
-
-  a {
-    align-items: center;
-    border: ${px2rem(2)} solid #fff;
-    border-radius: ${px2rem(20)};
-    display: flex;
-    font-size: ${px2rem(16)};
-    height: ${px2rem(40)};
-    justify-content: center;
-    margin-top: ${px2rem(30)};
-    padding: 0 ${px2rem(20)};
-    text-align: center;
-  }
-`;
+import { useHistory } from 'react-router-dom';
 
 const LogoutButton = styled.button`
   align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 0 0 ${px2rem(8)} 0;
+  color: #fff;
   display: flex;
   justify-content: center;
+  left: 0;
   margin: auto auto 0;
+  padding: ${px2rem(20)};
+  position: fixed;
+  top: 0;
+`;
+
+const Total = styled.div`
+  align-items: center;
+  background-color: rgba(64, 0, 0, 0.8);
+  border-radius: 0 0 0 ${px2rem(8)};
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  padding: ${px2rem(20)};
+  position: fixed;
+  right: 0;
+  top: 0;
 `;
 
 export default function Menu() {
@@ -59,13 +48,26 @@ export default function Menu() {
     }
   }, [auth, history]);
 
+  const image = useSelector(({ image }) => image);
+
   return (
-    <Wrapper>
-      <h1>Mapa</h1>
-      <Link to="/historico">Histórico de Queimadas</Link>
+    <>
+      <Total>
+        <p>
+          Total de hectares queimados:{' '}
+          {image.data.length > 0
+            ? sm2ha(
+                image.data.reduce(
+                  (sum, result) => (sum += result.totalSquareMeters),
+                  0
+                )
+              )
+            : 0}
+        </p>
+      </Total>
       <LogoutButton onClick={() => logout()} type="button">
         Sair
       </LogoutButton>
-    </Wrapper>
+    </>
   );
 }
