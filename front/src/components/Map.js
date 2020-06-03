@@ -52,7 +52,10 @@ export default function Map() {
         <ImageWrapper key={index}>
           <img src={result.image} alt={`Mapa ${index + 1}`} />
           <ImageOverlay>
-            <p>Área queimada: {sm2ha(result.totalSquareMeters)} hectares</p>
+            <p>
+              Área dos prováveis focos: {sm2ha(result.totalSquareMeters)}{' '}
+              hectares
+            </p>
           </ImageOverlay>
         </ImageWrapper>
       ))}
