@@ -58,17 +58,19 @@ export default function Clima() {
   const inflamabilidade = indiceInflamabilidade(temp, 35.9, 17.6);
   return (
     <div>
-      <h3>Clima nas suas Coordenadas ({weather.weather[0].description})</h3>
-      <hr />
-      <ul>
-        <li>Temperatura atual: {temp}°</li>
-        <li>Temperatura máxima: {temp_max}°</li>
-        <li>Temperatura minima: {temp_min}°</li>
-        <li>Pressão: {pressure} hpa</li>
-        <li>Humidade: {humidity}%</li>
-        <li>Indice de imflamabilidade:{inflamabilidade}</li>
-        <li>Risco de incêndio:{risco(inflamabilidade)}</li>
-      </ul>
-    </div>
-  );
+<div className="content">
+<h3>Clima nas suas Coordenadas ({weather.weather[0].description})</h3>
+<ul>
+
+<div className="">TemperaturaTemperatura atual: {temp}°</div>
+<div className="">Temperatura máxima: {temp_max}°</div>
+<div className="">Temperatura minima: {temp_min}°</div>
+<div className="">Pressão: {pressure} hpa</div>
+<div className="">Humidade: {humidity}%</div>
+<div className="">Indice de imflamabilidade:{inflamabilidade}</div>
+<div className="">Risco de incêndio:{risco(inflamabilidade)}</div>
+</ul>
+</div>
+</div>  );
 }
+
