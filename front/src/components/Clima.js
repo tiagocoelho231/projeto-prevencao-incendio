@@ -20,6 +20,27 @@ function indiceInflamabilidade(tempAr, tensaoMaxVapor, tensaoRealVapor) {
   var indiceInflamabilidade = deficitSaturacao * tempAr;
   return indiceInflamabilidade;
 }
+function somatorioInflamabiliidade(chuva, risco, riscoDiario) {
+  if (chuva < 2) {
+    riscoDiario = riscoDiario + risco;
+  }
+  else if (chuva < 5) {
+    riscoDiario = (75 * riscoDiario) / 100;
+    riscoDiario = riscoDiario + risco;
+  }
+  else if (chuva < 8) {
+    riscoDiario = (50 * riscoDiario) / 100;
+    riscoDiario = riscoDiario + risco;
+  }
+  else if (chuva < 10) {
+        riscoDiario = risco;
+  }
+  else if (chuva >10){
+        riscoDiario = 0;
+  }
+  return riscoDiario;
+
+}
 
 export default function Clima() {
   const [weather, setWeather] = useState(false);
@@ -55,22 +76,22 @@ export default function Clima() {
     main: { temp, temp_max, temp_min, pressure, humidity }
   } = weather;
 
-  const inflamabilidade = indiceInflamabilidade(temp, 35.9, 17.6);
+  
   return (
     <div>
-<div className="content">
-<h3>Clima nas suas Coordenadas ({weather.weather[0].description})</h3>
-<ul>
+      <div className="content">
+        <h3>Clima nas suas Coordenadas ({weather.weather[0].description})</h3>
+        <ul>
 
-<div className="">TemperaturaTemperatura atual: {temp}°</div>
-<div className="">Temperatura máxima: {temp_max}°</div>
-<div className="">Temperatura minima: {temp_min}°</div>
-<div className="">Pressão: {pressure} hpa</div>
-<div className="">Humidade: {humidity}%</div>
-<div className="">Indice de imflamabilidade:{inflamabilidade}</div>
-<div className="">Risco de incêndio:{risco(inflamabilidade)}</div>
-</ul>
-</div>
-</div>  );
+          <div className="">TemperaturaTemperatura atual: {temp}°</div>
+          <div className="">Temperatura máxima: {temp_max}°</div>
+          <div className="">Temperatura minima: {temp_min}°</div>
+          <div className="">Pressão: {pressure} hpa</div>
+          <div className="">Humidade: {humidity}%</div>
+          <div className="">Indice de imflamabilidade:{indiceInflamabilidade(temp, 35.9, 17.6)}</div>
+          <div className="">Risco de incêndio:{risco(indiceInflamabilidade(temp, 35.9, 17.6))}</div>
+        </ul>
+      </div>
+    </div>);
 }
 
