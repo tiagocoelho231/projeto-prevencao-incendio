@@ -88,8 +88,12 @@ export default function Clima() {
           <div className="">Temperatura minima: {temp_min}°</div>
           <div className="">Pressão: {pressure} hpa</div>
           <div className="">Humidade: {humidity}%</div>
-          <div className="">Indice de imflamabilidade:{indiceInflamabilidade(temp, 35.9, 17.6)}</div>
-          <div className="">Risco de incêndio:{risco(indiceInflamabilidade(temp, 35.9, 17.6))}</div>
+          <div className="">Indice de inflamabilidade dia 1:{indiceInflamabilidade(temp,35.9, 17.6)}</div>
+          <div className="">Risco de incêndio dia 1:{risco(indiceInflamabilidade(temp, 35.9, 17.6))}</div>
+          <div className="">Indice de inflamabilidade dia 2(sem chuva):{somatorioInflamabiliidade(0,indiceInflamabilidade(temp, 35.9, 17.6),indiceInflamabilidade(temp, 35.9, 17.6))}</div>
+          <div className="">Risco de incêndio dia 2(sem chuva):{risco(somatorioInflamabiliidade(0,indiceInflamabilidade(temp, 35.9, 17.6),indiceInflamabilidade(temp, 35.9, 17.6)))}</div>
+         
+
         </ul>
       </div>
     </div>);
