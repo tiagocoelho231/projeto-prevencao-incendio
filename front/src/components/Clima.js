@@ -1,45 +1,50 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import axios from 'axios';
+import { px2rem } from '../util';
+
+const Wrapper = styled.div`
+  background-color: rgba(0, 0, 64, 0.8);
+  border-radius: ${px2rem(8)} 0 0 0;
+  color: #fff;
+  padding: ${px2rem(20)};
+  bottom: 0;
+  position: fixed;
+  right: 0;
+`;
 
 function risco(indice) {
   if (indice < 301) {
     return 'Nenhum';
   } else if (indice < 501) {
-    return 'Pequeno';
+    return 'Baixo';
   } else if (indice < 1001) {
     return 'Médio';
   } else if (indice < 4001) {
-    return 'Grande';
+    return 'Alto';
   } else {
-    return 'Perigoso';
+    return 'Muito alto';
   }
 }
 
 function indiceInflamabilidade(tempAr, tensaoMaxVapor, tensaoRealVapor) {
-  var deficitSaturacao = tensaoMaxVapor - tensaoRealVapor;
-  var indiceInflamabilidade = deficitSaturacao * tempAr;
+  const deficitSaturacao = tensaoMaxVapor - tensaoRealVapor;
+  const indiceInflamabilidade = deficitSaturacao * tempAr;
   return indiceInflamabilidade;
 }
 function somatorioInflamabiliidade(chuva, risco, riscoDiario) {
   if (chuva < 2) {
-    riscoDiario = riscoDiario + risco;
-  }
-  else if (chuva < 5) {
-    riscoDiario = (75 * riscoDiario) / 100;
-    riscoDiario = riscoDiario + risco;
-  }
-  else if (chuva < 8) {
-    riscoDiario = (50 * riscoDiario) / 100;
-    riscoDiario = riscoDiario + risco;
-  }
-  else if (chuva < 10) {
-        riscoDiario = risco;
-  }
-  else if (chuva >10){
-        riscoDiario = 0;
+    riscoDiario += risco;
+  } else if (chuva < 5) {
+    riscoDiario = riscoDiario * 0.75 + risco;
+  } else if (chuva < 8) {
+    riscoDiario = riscoDiario * 0.5 + risco;
+  } else if (chuva < 10) {
+    riscoDiario = risco;
+  } else {
+    riscoDiario = 0;
   }
   return riscoDiario;
-
 }
 
 export default function Clima() {
@@ -69,14 +74,17 @@ export default function Clima() {
   }, []);
 
   if (!weather) {
-    return <div>Carregando o clima...</div>;
+    return (
+      <Wrapper>
+        <p>Buscando informações sobre o clima...</p>
+      </Wrapper>
+    );
   }
 
   const {
     main: { temp, temp_max, temp_min, pressure, humidity }
   } = weather;
 
-  
   return (
     <div>
       <div className="content">
@@ -98,4 +106,3 @@ export default function Clima() {
       </div>
     </div>);
 }
-
