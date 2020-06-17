@@ -86,22 +86,23 @@ export default function Clima() {
   } = weather;
 
   return (
-    <Wrapper>
-      <h2>Clima da área: {weather.weather[0].description}</h2>
-      <ul>
-        <li>Temperatura atual: {temp}°</li>
-        <li>Temperatura máxima: {temp_max}°</li>
-        <li>Temperatura minima: {temp_min}°</li>
-        <li>Pressão: {pressure} hpa</li>
-        <li>Umidade: {humidity}%</li>
-        <li>
-          Indice de inflamabilidade:{' '}
-          {indiceInflamabilidade(temp, 35.9, 17.6).toFixed(2)}
-        </li>
-        <li>
-          Risco de incêndio: {risco(indiceInflamabilidade(temp, 35.9, 17.6))}
-        </li>
-      </ul>
-    </Wrapper>
-  );
+    <div>
+      <div className="content">
+        <h3>Clima nas suas Coordenadas ({weather.weather[0].description})</h3>
+        <ul>
+
+          <div className="">TemperaturaTemperatura atual: {temp}°</div>
+          <div className="">Temperatura máxima: {temp_max}°</div>
+          <div className="">Temperatura minima: {temp_min}°</div>
+          <div className="">Pressão: {pressure} hpa</div>
+          <div className="">Humidade: {humidity}%</div>
+          <div className="">Indice de inflamabilidade dia 1:{indiceInflamabilidade(temp,35.9, 17.6)}</div>
+          <div className="">Risco de incêndio dia 1:{risco(indiceInflamabilidade(temp, 35.9, 17.6))}</div>
+          <div className="">Indice de inflamabilidade dia 2(sem chuva):{somatorioInflamabiliidade(0,indiceInflamabilidade(temp, 35.9, 17.6),indiceInflamabilidade(temp, 35.9, 17.6))}</div>
+          <div className="">Risco de incêndio dia 2(sem chuva):{risco(somatorioInflamabiliidade(0,indiceInflamabilidade(temp, 35.9, 17.6),indiceInflamabilidade(temp, 35.9, 17.6)))}</div>
+         
+
+        </ul>
+      </div>
+    </div>);
 }
