@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { px2rem } from '../util';
+import { API } from '../../../api/config';
 
 const Wrapper = styled.div`
   background-color: rgba(0, 0, 64, 0.8);
@@ -51,26 +52,15 @@ export default function Clima() {
   const [weather, setWeather] = useState(false);
 
   useEffect(() => {
-    let getWeather = async (lat, long) => {
+    let getWeather = async () => {
       try {
-        let res = await axios.get(
-          'http://api.openweathermap.org/data/2.5/weather',
-          {
-            params: {
-              lat: lat,
-              lon: long,
-              appid: '99af0e9ea489df1ee66b6156a9e06a4b',
-              lang: 'pt',
-              units: 'metric'
-            }
-          }
-        );
-        setWeather(res.data);
+        const { data } = API.get('/clima');
+        console.log('data', data);
       } catch (error) {
-        console.log('error', error);
+        console.error(error);
       }
     };
-    getWeather('-18.574313', '-46.514105');
+    getWeather();
   }, []);
 
   if (!weather) {

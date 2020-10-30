@@ -1,8 +1,10 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
+const initializeMeteorologia = require('./services/meteorologia.service');
 
-const imageController = require('./controllers/image.controller');
+const imagesController = require('./controllers/images.controller');
+const climaController = require('./controllers/clima.controller');
 
 const app = express();
 
@@ -13,6 +15,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cors());
 
-app.use('/', imageController);
+app.use('/images', imagesController);
+app.use('/clima', climaController);
+
+initializeMeteorologia();
 
 module.exports = app;

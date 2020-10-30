@@ -17,7 +17,7 @@ export default createModel({
   effects: dispatch => ({
     async fetch() {
       try {
-        const { data } = await API.get('');
+        const { data } = await API.get('/images');
         dispatch.image.fetchSuccess(data);
       } catch (error) {
         dispatch.image.fetchFail(error);
