@@ -1,7 +1,9 @@
 import authentication from './authentication.model';
 import image from './image.model';
 
-export default {
+const models = {
   authentication,
   image
 };
+
+export default models;

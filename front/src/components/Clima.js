@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import { px2rem } from '../util';
-import { API } from '../../../api/config';
+import { API } from '../config';
 
 const Wrapper = styled.div`
   background-color: rgba(0, 0, 64, 0.8);
@@ -54,8 +53,9 @@ export default function Clima() {
   useEffect(() => {
     let getWeather = async () => {
       try {
-        const { data } = API.get('/clima');
+        const { data } = await API.get('/clima');
         console.log('data', data);
+        // setWeather(data);
       } catch (error) {
         console.error(error);
       }
