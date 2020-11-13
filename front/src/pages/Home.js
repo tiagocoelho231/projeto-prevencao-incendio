@@ -79,6 +79,10 @@ const Content1 = styled.div`
       border-bottom: 1px solid rgba(0, 0, 0, .4);
     }
   }
+
+  a {
+    width: 100%;
+  }
 `;
 
 const Content2 = styled.div`
@@ -144,7 +148,7 @@ export default function Home() {
           <Content1>
             <p><strong>Agora em</strong><span>João Pinheiro, MG</span></p>
             <div>
-              <img src={IconRain} alt="Icone de chuva"/>
+              <img src={IconRain} alt="Chuva"/>
               <h2>24°</h2>
             </div>
             <ul>
