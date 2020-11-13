@@ -7,12 +7,11 @@ import { Home, Login } from './pages';
 export default function App() {
   const [response, setResponse] = useState(null);
 
-  console.log('response', response);
-
   useEffect(() => {
-    const socket = socketIOClient(endpoint);
+    const socket = socketIOClient(endpoint, { transports: ['websocket'] });
     console.log('socket', socket);
     socket.on('new-data', data => {
+      console.log('data', data);
       setResponse(data);
     });
 
