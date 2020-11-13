@@ -164,15 +164,15 @@ export default function Home() {
                 <p><strong className="uppercase">Pressão</strong></p>
                 <p><span>936hPa</span></p>
               </li>
-              <a>Previsão pra hoje {">"}</a>
             </ul>
+            <a>Previsão pra hoje {">"}</a>
           </Content1>
 
           <Content2>
             <p><strong>Registrados</strong></p>
             <ul>
               <li>
-                <p><strong>raios</strong></p>
+                <p><strong>Raios</strong></p>
                 <p>0 na última hora</p>
               </li>
               <li>
