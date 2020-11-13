@@ -1,5 +1,6 @@
 @import 'reset.scss';
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 @function px2rem($size, $context: 16px) {
   @if (unitless($size)) {
@@ -45,7 +46,8 @@ html {
 body {
   background-color: #000010;
   color: #fff;
-  font-family: 'Open Sans';
+  font-family: 'Roboto';
+  // font-family: 'Open Sans';
   font-size: px2rem(20);
   overflow-x: hidden;
 }
@@ -115,4 +117,12 @@ body {
       min-height: 180px;
     }
   }
+}
+
+.uppercase{
+  text-transform: uppercase;
+}
+
+.bold{
+  font-weight: bold;
 }
