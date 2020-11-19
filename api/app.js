@@ -14,8 +14,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cors());
 
-app.use('/', (req, res) => res.json(`There's nothing to see here...`));
 app.use('/images', imagesController);
 app.use('/clima', climaController);
+app.use('/', (req, res) => res.json(`There's nothing to see here...`));
 
 module.exports = app;

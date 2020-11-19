@@ -4,9 +4,10 @@ import styled from 'styled-components';
 import { px2rem } from '../util';
 import { Map, Menu, Clima, SideBar } from '../components';
 
-import IconRain from "../assets/icon-rain.png";
-import Mapa1 from "../assets/mapa-1.png";
-import Mapa2 from "../assets/mapa-2.png";
+import IconRain from '../assets/icon-rain.png';
+import Mapa1 from '../assets/mapa-1.png';
+import Mapa2 from '../assets/mapa-2.png';
+import { useSelector } from 'react-redux';
 
 const Page = styled.main`
   position: relative;
@@ -17,18 +18,18 @@ const Page = styled.main`
 const Content = styled.div`
   width: 100%;
   padding: ${px2rem(170)} ${px2rem(100)};
-  a{
+  a {
     display: block;
     font-size: ${px2rem(16)};
     font-weight: bold;
     color: #0080cd;
     padding-top: ${px2rem(20)};
   }
-  strong{
+  strong {
     color: rgb(0, 73, 131);
     margin-right: ${px2rem(6)};
   }
-  span{
+  span {
     color: rgb(160, 160, 160);
   }
 `;
@@ -37,15 +38,15 @@ const Weather = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  >div{
+  > div {
     width: 100%;
     display: flex;
     flex-direction: column;
   }
-  p{
+  p {
     color: #000;
     font-size: ${px2rem(16)};
-  } 
+  }
 `;
 
 const Content1 = styled.div`
@@ -53,30 +54,30 @@ const Content1 = styled.div`
   flex-direction: column;
   align-items: center;
   max-width: ${px2rem(400)};
-  >p{
+  > p {
     text-align: center;
   }
-  >div{
+  > div {
     display: flex;
     align-items: center;
     margin-top: ${px2rem(25)};
-    img{
+    img {
       width: ${px2rem(125)};
       margin-right: ${px2rem(10)};
     }
-    h2{
+    h2 {
       color: #000;
       font-size: ${px2rem(55)};
     }
   }
-  ul{
+  ul {
     width: 100%;
-    li{
+    li {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: ${px2rem(15)} 0;
-      border-bottom: 1px solid rgba(0, 0, 0, .4);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.4);
     }
   }
 
@@ -90,20 +91,20 @@ const Content2 = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 ${px2rem(35)} !important;
-  ul{
+  ul {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: ${px2rem(30)};
-    li{
+    li {
       padding: ${px2rem(15)} 0;
-      strong{
+      strong {
         color: #000;
       }
-      a{
+      a {
         text-align: center;
       }
-      img{
+      img {
         width: ${px2rem(195)};
         border-radius: 23px;
       }
@@ -113,13 +114,13 @@ const Content2 = styled.div`
 
 const Content3 = styled.div`
   max-width: ${px2rem(350)};
-  ul{
-    li{
+  ul {
+    li {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: ${px2rem(15)} 0;
-      border-bottom: 1px solid rgba(0, 0, 0, .4);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.4);
     }
   }
 `;
@@ -128,11 +129,11 @@ const History = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: ${px2rem(50)};
-  >div{
-    height:${px2rem(200)};
+  > div {
+    height: ${px2rem(200)};
     display: flex;
     align-items: center;
-    strong{
+    strong {
       color: #000;
       font-size: ${px2rem(16)};
     }
@@ -140,76 +141,117 @@ const History = styled.div`
 `;
 
 export default function Home() {
+  const data = useSelector(({ clima: { data: clima } }) => clima);
+
+  console.log('data', data);
+
   return (
     <Page>
       <SideBar />
       <Content>
         <Weather>
           <Content1>
-            <p><strong>Agora em</strong><span>João Pinheiro, MG</span></p>
+            <p>
+              <strong>Agora em</strong>
+              <span>João Pinheiro, MG</span>
+            </p>
             <div>
-              <img src={IconRain} alt="Chuva"/>
+              <img src={IconRain} alt="Chuva" />
               <h2>24°</h2>
             </div>
             <ul>
               <li>
-                <p><span className="bold">Muitas nuvens</span></p>
-                <p><span>Sensação - 24°</span></p>
+                <p>
+                  <span className="bold">Muitas nuvens</span>
+                </p>
+                <p>
+                  <span>Sensação - 24°</span>
+                </p>
               </li>
               <li>
-                <p><strong className="uppercase">Vento</strong></p>
-                <p><span>NNE - 5km/h</span></p>
+                <p>
+                  <strong className="uppercase">Vento</strong>
+                </p>
+                <p>
+                  <span>NNE - 5km/h</span>
+                </p>
               </li>
               <li>
-                <p><strong className="uppercase">Umidade</strong></p>
-                <p><span>46%</span></p>
+                <p>
+                  <strong className="uppercase">Umidade</strong>
+                </p>
+                <p>
+                  <span>46%</span>
+                </p>
               </li>
               <li>
-                <p><strong className="uppercase">Pressão</strong></p>
-                <p><span>936hPa</span></p>
+                <p>
+                  <strong className="uppercase">Pressão</strong>
+                </p>
+                <p>
+                  <span>936hPa</span>
+                </p>
               </li>
             </ul>
-            <a>Previsão pra hoje {">"}</a>
+            <a>Previsão pra hoje {'>'}</a>
           </Content1>
 
           <Content2>
-            <p><strong>Registrados</strong></p>
+            <p>
+              <strong>Registrados</strong>
+            </p>
             <ul>
               <li>
-                <p><strong>Raios</strong></p>
+                <p>
+                  <strong>Raios</strong>
+                </p>
                 <p>0 na última hora</p>
               </li>
               <li>
-                <p><strong>Queimadas</strong></p>
+                <p>
+                  <strong>Queimadas</strong>
+                </p>
                 <p>0 focos</p>
               </li>
             </ul>
-            <p><strong>Explore os mapas</strong></p>
+            <p>
+              <strong>Explore os mapas</strong>
+            </p>
             <ul>
               <li>
-                <img src={Mapa1} alt="mapa-1"/>
-                <a href="#">Satélites {">"}</a>
+                <img src={Mapa1} alt="mapa-1" />
+                <a href="#">Satélites {'>'}</a>
               </li>
               <li>
-                <img src={Mapa2} alt="mapa-2"/>
-                <a href="#">Chuva agora {">"}</a>
+                <img src={Mapa2} alt="mapa-2" />
+                <a href="#">Chuva agora {'>'}</a>
               </li>
             </ul>
           </Content2>
 
           <Content3>
-            <p><strong>Risco de incêndio</strong></p>
+            <p>
+              <strong>Risco de incêndio</strong>
+            </p>
             <ul>
               <li>
-                <p><strong>Hoje</strong></p>
-                <p><span>Médio</span></p>
+                <p>
+                  <strong>Hoje</strong>
+                </p>
+                <p>
+                  <span>Médio</span>
+                </p>
               </li>
               <li>
-                <p><strong>Ontem</strong></p>
-                <p><span>Baixo</span></p>
+                <p>
+                  <strong>Ontem</strong>
+                </p>
+                <p>
+                  <span>Baixo</span>
+                </p>
               </li>
             </ul>
-            <a>Dados historicos detalhados {">"}</a>
+            <a>Dados historicos detalhados {'>'}</a>
           </Content3>
         </Weather>
 

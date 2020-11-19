@@ -1,22 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import socketIOClient from 'socket.io-client';
 import { endpoint } from './config';
 import { Home, Login } from './pages';
 
 export default function App() {
-  const [response, setResponse] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const socket = socketIOClient(endpoint, { transports: ['websocket'] });
-    console.log('socket', socket);
     socket.on('new-data', data => {
-      console.log('data', data);
-      setResponse(data);
+      dispatch.clima.setData(data);
     });
 
     return () => socket.disconnect();
-  }, []);
+  }, []); //eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Router>

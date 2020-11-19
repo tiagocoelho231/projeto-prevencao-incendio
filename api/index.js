@@ -34,7 +34,7 @@ setInterval(async () => {
   } catch (error) {
     console.error(error);
   }
-}, 5000);
+}, 30000);
 
 const rule = new RecurrenceRule();
 rule.tz = 'America/Sao_Paulo';
