@@ -4,9 +4,10 @@ import styled from 'styled-components';
 import { px2rem } from '../util';
 import { Map, Menu, Clima, SideBar } from '../components';
 
-import IconRain from "../assets/icon-rain.png";
-import Mapa1 from "../assets/mapa-1.png";
-import Mapa2 from "../assets/mapa-2.png";
+import IconRain from '../assets/icon-rain.png';
+import Mapa1 from '../assets/mapa-1.png';
+import Mapa2 from '../assets/mapa-2.png';
+import { useSelector } from 'react-redux';
 
 const Page = styled.main`
   position: relative;
@@ -16,19 +17,24 @@ const Page = styled.main`
 
 const Content = styled.div`
   width: 100%;
+<<<<<<< HEAD
   padding: ${px2rem(110)} ${px2rem(40)} 0;
   a{
+=======
+  padding: ${px2rem(170)} ${px2rem(100)};
+  a {
+>>>>>>> decba03c03b52d62feaa56c0e00fdb8554b05dfa
     display: block;
     font-size: ${px2rem(16)};
     font-weight: bold;
     color: #0080cd;
     padding-top: ${px2rem(20)};
   }
-  strong{
+  strong {
     color: rgb(0, 73, 131);
     margin-right: ${px2rem(6)};
   }
-  span{
+  span {
     color: rgb(160, 160, 160);
   }
 `;
@@ -37,15 +43,15 @@ const Weather = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  >div{
+  > div {
     width: 100%;
     display: flex;
     flex-direction: column;
   }
-  p{
+  p {
     color: #000;
     font-size: ${px2rem(16)};
-  } 
+  }
 `;
 
 const Content1 = styled.div`
@@ -53,31 +59,35 @@ const Content1 = styled.div`
   flex-direction: column;
   align-items: center;
   max-width: ${px2rem(400)};
-  >p{
+  > p {
     text-align: center;
   }
-  >div{
+  > div {
     display: flex;
     align-items: center;
     margin-top: ${px2rem(25)};
-    img{
+    img {
       width: ${px2rem(125)};
       margin-right: ${px2rem(10)};
     }
-    h2{
+    h2 {
       color: #000;
       font-size: ${px2rem(55)};
     }
   }
-  ul{
+  ul {
     width: 100%;
-    li{
+    li {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: ${px2rem(15)} 0;
-      border-bottom: 1px solid rgba(0, 0, 0, .4);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.4);
     }
+  }
+
+  a {
+    width: 100%;
   }
 `;
 
@@ -85,20 +95,25 @@ const Content2 = styled.div`
   max-width: ${px2rem(420)};
   display: flex;
   flex-direction: column;
+<<<<<<< HEAD
   ul{
+=======
+  margin: 0 ${px2rem(35)} !important;
+  ul {
+>>>>>>> decba03c03b52d62feaa56c0e00fdb8554b05dfa
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: ${px2rem(30)};
-    li{
+    li {
       padding: ${px2rem(15)} 0;
-      strong{
+      strong {
         color: #000;
       }
-      a{
+      a {
         text-align: center;
       }
-      img{
+      img {
         width: ${px2rem(195)};
         border-radius: 23px;
       }
@@ -108,13 +123,13 @@ const Content2 = styled.div`
 
 const Content3 = styled.div`
   max-width: ${px2rem(350)};
-  ul{
-    li{
+  ul {
+    li {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: ${px2rem(15)} 0;
-      border-bottom: 1px solid rgba(0, 0, 0, .4);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.4);
     }
   }
 `;
@@ -124,6 +139,7 @@ const History = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: ${px2rem(50)};
+<<<<<<< HEAD
   >div{
     height: 100%;
     display: flex;
@@ -177,24 +193,41 @@ const History = styled.div`
         text-align: center;
         margin-top: ${px2rem(7)};
       }
+=======
+  > div {
+    height: ${px2rem(200)};
+    display: flex;
+    align-items: center;
+    strong {
+      color: #000;
+      font-size: ${px2rem(16)};
+>>>>>>> decba03c03b52d62feaa56c0e00fdb8554b05dfa
     }
   }
 `;
 
 export default function Home() {
+  const data = useSelector(({ clima: { data: clima } }) => clima);
+
+  console.log('data', data);
+
   return (
     <Page>
       <SideBar />
       <Content>
         <Weather>
           <Content1>
-            <p><strong>Agora em</strong><span>João Pinheiro, MG</span></p>
+            <p>
+              <strong>Agora em</strong>
+              <span>João Pinheiro, MG</span>
+            </p>
             <div>
-              <img src={IconRain} alt="Icone de chuva"/>
-              <h2>24°</h2>
+              <img src={IconRain} alt="Chuva" />
+            <h2>{data.length > 0 && data[0].TEM_INS}º</h2>
             </div>
             <ul>
               <li>
+<<<<<<< HEAD
                 <span className="bold">Muitas nuvens</span>
                 <span>Sensação - 24°</span>
               </li>
@@ -209,12 +242,45 @@ export default function Home() {
               <li>
                 <strong className="uppercase">Pressão</strong>
                 <span>936hPa</span>
+=======
+                <p>
+                  <span className="bold">Muitas nuvens</span>
+                </p>
+                <p>
+                  <span>Sensação - 24°</span>
+                </p>
               </li>
-              <a>Previsão pra hoje {">"}</a>
+              <li>
+                <p>
+                  <strong className="uppercase">Vento</strong>
+                </p>
+                <p>
+                  <span>{data.length > 0 && data[0].VEN_VEL} m/s</span>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <strong className="uppercase">Umidade</strong>
+                </p>
+                <p>
+                  <span>{data.length > 0 && data[0].UMD_INS}%</span>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <strong className="uppercase">Pressão</strong>
+                </p>
+                <p>
+                  <span>{data.length > 0 && data[0].PRE_INS} hPa</span>
+                </p>
+>>>>>>> decba03c03b52d62feaa56c0e00fdb8554b05dfa
+              </li>
             </ul>
+            <a>Previsão pra hoje {'>'}</a>
           </Content1>
 
           <Content2>
+<<<<<<< HEAD
             <strong>Registrados</strong>
             <ul>
               <li>
@@ -227,19 +293,42 @@ export default function Home() {
               </li>
             </ul>
             <strong>Explore os mapas</strong>
+=======
+            <p>
+              <strong>Registrados</strong>
+            </p>
             <ul>
               <li>
-                <img src={Mapa1} alt="mapa-1"/>
-                <a href="#">Satélites {">"}</a>
+                <p>
+                  <strong>Raios</strong>
+                </p>
+                <p>0 na última hora</p>
               </li>
               <li>
-                <img src={Mapa2} alt="mapa-2"/>
-                <a href="#">Chuva agora {">"}</a>
+                <p>
+                  <strong>Queimadas</strong>
+                </p>
+                <p>0 focos</p>
+              </li>
+            </ul>
+            <p>
+              <strong>Explore os mapas</strong>
+            </p>
+>>>>>>> decba03c03b52d62feaa56c0e00fdb8554b05dfa
+            <ul>
+              <li>
+                <img src={Mapa1} alt="mapa-1" />
+                <a href="#">Satélites {'>'}</a>
+              </li>
+              <li>
+                <img src={Mapa2} alt="mapa-2" />
+                <a href="#">Chuva agora {'>'}</a>
               </li>
             </ul>
           </Content2>
 
           <Content3>
+<<<<<<< HEAD
             <strong>Risco de incêndio</strong>
             <ul>
               <li>
@@ -249,9 +338,30 @@ export default function Home() {
               <li>
                 <strong>Ontem</strong>
                 <span>Baixo</span>
+=======
+            <p>
+              <strong>Risco de incêndio</strong>
+            </p>
+            <ul>
+              <li>
+                <p>
+                  <strong>Hoje</strong>
+                </p>
+                <p>
+                  <span>Médio</span>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <strong>Ontem</strong>
+                </p>
+                <p>
+                  <span>Baixo</span>
+                </p>
+>>>>>>> decba03c03b52d62feaa56c0e00fdb8554b05dfa
               </li>
             </ul>
-            <a>Dados historicos detalhados {">"}</a>
+            <a>Dados historicos detalhados {'>'}</a>
           </Content3>
         </Weather>
 

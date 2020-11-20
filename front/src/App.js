@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import socketIOClient from 'socket.io-client';
 import { endpoint } from './config';
@@ -7,19 +8,16 @@ import Notification from './pages/Notification';
 import SideBar from './components/SideBar';
 
 export default function App() {
-  const [response, setResponse] = useState(null);
-
-  console.log('response', response);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const socket = socketIOClient(endpoint);
-    console.log('socket', socket);
+    const socket = socketIOClient(endpoint, { transports: ['websocket'] });
     socket.on('new-data', data => {
-      setResponse(data);
+      dispatch.clima.setData(data);
     });
 
     return () => socket.disconnect();
-  }, []);
+  }, []); //eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Router>
