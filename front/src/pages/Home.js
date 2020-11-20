@@ -157,7 +157,7 @@ export default function Home() {
             </p>
             <div>
               <img src={IconRain} alt="Chuva" />
-              <h2>24°</h2>
+            <h2>{data.length > 0 && data[0].TEM_INS}º</h2>
             </div>
             <ul>
               <li>
@@ -173,7 +173,7 @@ export default function Home() {
                   <strong className="uppercase">Vento</strong>
                 </p>
                 <p>
-                  <span>NNE - 5km/h</span>
+                  <span>{data.length > 0 && data[0].VEN_VEL} m/s</span>
                 </p>
               </li>
               <li>
@@ -181,7 +181,7 @@ export default function Home() {
                   <strong className="uppercase">Umidade</strong>
                 </p>
                 <p>
-                  <span>46%</span>
+                  <span>{data.length > 0 && data[0].UMD_INS}%</span>
                 </p>
               </li>
               <li>
@@ -189,7 +189,7 @@ export default function Home() {
                   <strong className="uppercase">Pressão</strong>
                 </p>
                 <p>
-                  <span>936hPa</span>
+                  <span>{data.length > 0 && data[0].PRE_INS} hPa</span>
                 </p>
               </li>
             </ul>
