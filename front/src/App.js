@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import socketIOClient from 'socket.io-client';
 import { endpoint } from './config';
 import { Home, Login } from './pages';
+import Notification from './pages/Notification';
+import SideBar from './components/SideBar';
 
 export default function App() {
   const [response, setResponse] = useState(null);
@@ -23,6 +25,7 @@ export default function App() {
     <Router>
       <Switch>
         <Route path="/login" component={Login} />
+        <Route path="/notificacao" component={Notification} />
         <Route path="/" component={Home} />
       </Switch>
     </Router>

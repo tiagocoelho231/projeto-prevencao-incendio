@@ -11,12 +11,12 @@ import Mapa2 from "../assets/mapa-2.png";
 const Page = styled.main`
   position: relative;
   display: flex;
-  background-color: #fff;
+  background-color: #f7f7f7; 
 `;
 
 const Content = styled.div`
   width: 100%;
-  padding: ${px2rem(170)} ${px2rem(100)};
+  padding: ${px2rem(110)} ${px2rem(40)} 0;
   a{
     display: block;
     font-size: ${px2rem(16)};
@@ -85,7 +85,6 @@ const Content2 = styled.div`
   max-width: ${px2rem(420)};
   display: flex;
   flex-direction: column;
-  margin: 0 ${px2rem(35)} !important;
   ul{
     display: flex;
     align-items: center;
@@ -121,16 +120,63 @@ const Content3 = styled.div`
 `;
 
 const History = styled.div`
+  height:${px2rem(230)};
   display: flex;
   flex-direction: column;
   margin-top: ${px2rem(50)};
   >div{
-    height:${px2rem(200)};
+    height: 100%;
     display: flex;
     align-items: center;
-    strong{
-      color: #000;
-      font-size: ${px2rem(16)};
+    padding-top: ${px2rem(20)};
+    >div{
+      height: 100%;
+      display: flex;
+      align-items: center;
+      margin-left: ${px2rem(12)};
+      strong{
+        color: #7a7a7a;
+        font-size: ${px2rem(16)};
+        margin-left: ${px2rem(8)};
+      }
+      >div{
+        position: relative;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        p{
+          position: absolute;
+          top: 0;
+          left: 0;
+          color: #464646;
+          font-size: ${px2rem(16)};
+        }
+        span{
+          width: ${px2rem(12)};
+          height: 100%;
+          background-color: #3080cd;
+          border-radius: ${px2rem(10)};
+          margin-top: ${px2rem(28)};
+        }
+      }
+    }
+    .info{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: ${px2rem(350)};
+      p{
+        color: #7a7a7a;
+        font-size: ${px2rem(16)};
+        text-align: center;
+      }
+      small{
+        color: #7a7a7a;
+        font-size: ${px2rem(14)};
+        text-align: center;
+        margin-top: ${px2rem(7)};
+      }
     }
   }
 `;
@@ -149,38 +195,38 @@ export default function Home() {
             </div>
             <ul>
               <li>
-                <p><span className="bold">Muitas nuvens</span></p>
-                <p><span>Sensação - 24°</span></p>
+                <span className="bold">Muitas nuvens</span>
+                <span>Sensação - 24°</span>
               </li>
               <li>
-                <p><strong className="uppercase">Vento</strong></p>
-                <p><span>NNE - 5km/h</span></p>
+                <strong className="uppercase">Vento</strong>
+                <span>NNE - 5km/h</span>
               </li>
               <li>
-                <p><strong className="uppercase">Umidade</strong></p>
-                <p><span>46%</span></p>
+                <strong className="uppercase">Umidade</strong>
+                <span>46%</span>
               </li>
               <li>
-                <p><strong className="uppercase">Pressão</strong></p>
-                <p><span>936hPa</span></p>
+                <strong className="uppercase">Pressão</strong>
+                <span>936hPa</span>
               </li>
               <a>Previsão pra hoje {">"}</a>
             </ul>
           </Content1>
 
           <Content2>
-            <p><strong>Registrados</strong></p>
+            <strong>Registrados</strong>
             <ul>
               <li>
-                <p><strong>raios</strong></p>
+                <strong>raios</strong>
                 <p>0 na última hora</p>
               </li>
               <li>
-                <p><strong>Queimadas</strong></p>
+                <strong>Queimadas</strong>
                 <p>0 focos</p>
               </li>
             </ul>
-            <p><strong>Explore os mapas</strong></p>
+            <strong>Explore os mapas</strong>
             <ul>
               <li>
                 <img src={Mapa1} alt="mapa-1"/>
@@ -194,29 +240,46 @@ export default function Home() {
           </Content2>
 
           <Content3>
-            <p><strong>Risco de incêndio</strong></p>
+            <strong>Risco de incêndio</strong>
             <ul>
               <li>
-                <p><strong>Hoje</strong></p>
-                <p><span>Médio</span></p>
+                <strong>Hoje</strong>
+                <span>Médio</span>
               </li>
               <li>
-                <p><strong>Ontem</strong></p>
-                <p><span>Baixo</span></p>
+                <strong>Ontem</strong>
+                <span>Baixo</span>
               </li>
             </ul>
             <a>Dados historicos detalhados {">"}</a>
           </Content3>
         </Weather>
 
-        {/* <History>
-          <p><strong>Dados Históricos de João Pinheiro</strong></p>
+        <History>
+          <strong>Dados Históricos de João Pinheiro</strong>
           <div>
-            <div><p><strong>Média de chuva nos últimos 30 anos</strong></p></div>
-            <div><p><strong>Média de chuva atingida até 08/11/2020</strong></p></div>
-            <div><p>Os dados representam o comportamento da chuva do mês</p><small>"As médias climatológicas são valores calcdivados a partir de uma série de dados de 30 anos</small></div>
+            <div>
+              <div>
+                <p>182mm</p>
+                <span />
+              </div>
+              <strong>Média de chuva nos últimos 30 anos</strong>
+            </div>
+            
+            <div>
+              <div>
+                <p>2%</p>
+                <span />
+              </div>
+              <strong>Média mensal de chuva atingida até 08/11/2020</strong>
+            </div>
+            
+            <div className="info">
+              <p>Os dados representam o comportamento da chuva do mês</p>
+              <small>"As médias climatológicas são valores calcdivados a partir de uma série de dados de 30 anos</small>
+            </div>
           </div>
-        </History> */}
+        </History>
       </Content>
       {/* <Map /> 
       <Menu />
