@@ -44,8 +44,8 @@ html {
 }
 
 body {
-  background-color: #000010;
-  color: #fff;
+  background-color: #f7f7f7;
+  color: rgb(160, 160, 160);
   font-family: 'Roboto';
   // font-family: 'Open Sans';
   font-size: px2rem(20);
@@ -125,4 +125,12 @@ body {
 
 .bold{
   font-weight: bold;
+}
+
+.blue {
+  color: rgb(0, 73, 131);
+}
+
+.gray {
+  color: rgb(160, 160, 160);
 }
