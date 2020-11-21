@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { px2rem } from '../util';
@@ -22,10 +23,10 @@ const MenuList = styled.div`
   li{
     display: flex;
     align-items: center;
-    padding: ${px2rem(15)} ${px2rem(20)};
     transition: all .4s ease-in-out;
     cursor: pointer;
     transition: 0.2s ease-in-out;
+    padding-left: ${px2rem(20)};
     &:hover{ 
       background-color: rgba(94, 139, 67, .7);
     }
@@ -37,10 +38,11 @@ const MenuList = styled.div`
         fill: rgb(1, 13, 22) !important;
       }
     }
-    p{
-      margin-right: ${px2rem(10)};
+    a{
       font-weight: 500;
       color: rgb(1, 13, 22);
+      margin-right: ${px2rem(10)};
+      padding: ${px2rem(15)} ${px2rem(20)};
     }
   }
 `;
@@ -51,19 +53,19 @@ export default function SideBar() {
         <MenuList>
           <li>
             <IconHome />
-            <p>Home</p>
+            <Link to="/">Home</Link>
           </li>
           <li>
             <IconLocation />
-            <p>Mapa</p>
+            <Link to="/">Mapa</Link>
           </li>
           <li>
             <IconWarning />
-            <p>Notificações</p>
+            <Link to="/notificacao">Notificações</Link>
           </li>
           <li>
             <IconInfo />
-            <p>Sobre a Aplicação</p>
+            <Link to="/">Sobre a Aplicação</Link>
           </li>
         </MenuList>
       </Wrapper>
