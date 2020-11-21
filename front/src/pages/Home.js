@@ -141,9 +141,9 @@ const History = styled.div`
 `;
 
 export default function Home() {
-  const data = useSelector(({ clima: { data: clima } }) => clima);
+  const clima = useSelector(({ clima }) => clima);
 
-  console.log('data', data);
+  console.log('clima', clima);
 
   return (
     <Page>
@@ -157,7 +157,7 @@ export default function Home() {
             </p>
             <div>
               <img src={IconRain} alt="Chuva" />
-            <h2>{data.length > 0 && data[0].TEM_INS}º</h2>
+              {clima && <h2>{clima.temperature + 'º'}</h2>}
             </div>
             <ul>
               <li>
@@ -172,25 +172,19 @@ export default function Home() {
                 <p>
                   <strong className="uppercase">Vento</strong>
                 </p>
-                <p>
-                  <span>{data.length > 0 && data[0].VEN_VEL} m/s</span>
-                </p>
+                <p>{clima && <span>{clima.windSpeed + ' m/s'}</span>}</p>
               </li>
               <li>
                 <p>
                   <strong className="uppercase">Umidade</strong>
                 </p>
-                <p>
-                  <span>{data.length > 0 && data[0].UMD_INS}%</span>
-                </p>
+                <p>{clima && <span>{clima.humidity + '%'}</span>}</p>
               </li>
               <li>
                 <p>
                   <strong className="uppercase">Pressão</strong>
                 </p>
-                <p>
-                  <span>{data.length > 0 && data[0].PRE_INS} hPa</span>
-                </p>
+                <p>{clima && <span>{clima.pressure + ' hPa'}</span>}</p>
               </li>
             </ul>
             <a>Previsão pra hoje {'>'}</a>
@@ -238,17 +232,13 @@ export default function Home() {
                 <p>
                   <strong>Hoje</strong>
                 </p>
-                <p>
-                  <span>Médio</span>
-                </p>
+                <p>{clima && <span>{clima.fireRisk}</span>}</p>
               </li>
               <li>
                 <p>
                   <strong>Ontem</strong>
                 </p>
-                <p>
-                  <span>Baixo</span>
-                </p>
+                <p>{clima && <span>{clima.yesterdayFireRisk}</span>}</p>
               </li>
             </ul>
             <a>Dados historicos detalhados {'>'}</a>

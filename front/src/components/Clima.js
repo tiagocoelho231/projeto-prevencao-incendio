@@ -13,40 +13,6 @@ const Wrapper = styled.div`
   right: 0;
 `;
 
-function risco(indice) {
-  if (indice < 301) {
-    return 'Nenhum';
-  } else if (indice < 501) {
-    return 'Baixo';
-  } else if (indice < 1001) {
-    return 'Médio';
-  } else if (indice < 4001) {
-    return 'Alto';
-  } else {
-    return 'Muito alto';
-  }
-}
-
-function indiceInflamabilidade(tempAr, tensaoMaxVapor, tensaoRealVapor) {
-  const deficitSaturacao = tensaoMaxVapor - tensaoRealVapor;
-  const indiceInflamabilidade = deficitSaturacao * tempAr;
-  return indiceInflamabilidade;
-}
-function somatorioInflamabiliidade(chuva, risco, riscoDiario) {
-  if (chuva < 2) {
-    riscoDiario += risco;
-  } else if (chuva < 5) {
-    riscoDiario = riscoDiario * 0.75 + risco;
-  } else if (chuva < 8) {
-    riscoDiario = riscoDiario * 0.5 + risco;
-  } else if (chuva < 10) {
-    riscoDiario = risco;
-  } else {
-    riscoDiario = 0;
-  }
-  return riscoDiario;
-}
-
 export default function Clima() {
   const [weather, setWeather] = useState(false);
 
@@ -86,29 +52,29 @@ export default function Clima() {
         <li>Umidade: {humidity}%</li>
         <li>
           Índice de inflamabilidade dia 1:{' '}
-          {indiceInflamabilidade(temp, 35.9, 17.6).toFixed(2)}
+          {/* {getIndiceInflamabilidade(temp, 35.9, 17.6).toFixed(2)} */}
         </li>
         <li>
           Risco de incêndio dia 1:{' '}
-          {risco(indiceInflamabilidade(temp, 35.9, 17.6))}
+          {/* {risco(getIndiceInflamabilidade(temp, 35.9, 17.6))} */}
         </li>
         <li>
           Índice de inflamabilidade dia 2 (sem chuva):{' '}
-          {somatorioInflamabiliidade(
+          {/* {somatorioInflamabilidade(
             0,
-            indiceInflamabilidade(temp, 35.9, 17.6),
-            indiceInflamabilidade(temp, 35.9, 17.6)
-          ).toFixed(2)}
+            getIndiceInflamabilidade(temp, 35.9, 17.6),
+            getIndiceInflamabilidade(temp, 35.9, 17.6)
+          ).toFixed(2)} */}
         </li>
         <li>
           Risco de incêndio dia 2 (sem chuva):{' '}
-          {risco(
-            somatorioInflamabiliidade(
+          {/* {risco(
+            somatorioInflamabilidade(
               0,
-              indiceInflamabilidade(temp, 35.9, 17.6),
-              indiceInflamabilidade(temp, 35.9, 17.6)
+              getIndiceInflamabilidade(temp, 35.9, 17.6),
+              getIndiceInflamabilidade(temp, 35.9, 17.6)
             )
-          )}
+          )} */}
         </li>
       </ul>
     </Wrapper>

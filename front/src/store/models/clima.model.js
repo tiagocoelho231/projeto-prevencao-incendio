@@ -1,12 +1,10 @@
 import { createModel } from '@rematch/core';
 
-const initialState = {
-  data: []
-};
+const initialState = null;
 
 export default createModel({
   state: initialState,
   reducers: {
-    setData: (state, data) => ({ ...state, data })
+    setClima: (_state, clima) => clima
   }
 });

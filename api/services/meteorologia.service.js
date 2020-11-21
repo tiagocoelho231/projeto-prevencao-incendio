@@ -33,16 +33,16 @@ function initializeService() {
     } catch (error) {
       console.error(error);
     }
-  }, 1000);
+  }, 1000 * 60 * 60); // Once per hour
 
-  const rule = new RecurrenceRule();
-  rule.tz = 'America/Sao_Paulo';
-  rule.minute = 0;
+  // const rule = new RecurrenceRule();
+  // rule.tz = 'America/Sao_Paulo';
+  // rule.minute = 0;
 
-  scheduleJob(rule, async () => {
-    const data = await fetchData();
-    io.emit('new-data', data);
-  });
+  // scheduleJob(rule, async () => {
+  //   const data = await fetchData();
+  //   io.emit('new-data', data);
+  // });
 }
 
 module.exports = initializeService;

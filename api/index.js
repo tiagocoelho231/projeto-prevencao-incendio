@@ -6,22 +6,29 @@ const { API } = require('./config');
 const port = process.env.PORT || 3030;
 const http = require('http');
 
+let cachedResult = null;
+
 const server = http.createServer(app);
 
 const io = socketIo(server, { transports: ['websocket'] });
 
 async function fetchDataAndEmit(socket) {
-  const response = await axios.get(`${API}/clima`);
+  const { data } = await axios.get(`${API}/clima`);
+  cachedResult = data;
   if (socket) {
-    socket.emit('new-data', response.data);
+    socket.emit('new-data', data);
   } else {
-    io.emit('new-data', response.data);
+    io.emit('new-data', data);
   }
 }
 
 io.on('connection', async socket => {
   console.log('connected', socket.id);
-  fetchDataAndEmit(socket);
+  if (!cachedResult) {
+    fetchDataAndEmit(socket);
+  } else {
+    socket.emit('new-data', cachedResult);
+  }
 
   socket.on('disconnect', () => {
     console.log('disconnected', socket.id);
@@ -45,3 +52,5 @@ scheduleJob(rule, fetchDataAndEmit);
 server.listen(port, () => {
   console.log(`Application running on port ${port}`);
 });
+
+fetchDataAndEmit();

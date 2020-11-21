@@ -10,8 +10,8 @@ export default function App() {
 
   useEffect(() => {
     const socket = socketIOClient(endpoint, { transports: ['websocket'] });
-    socket.on('new-data', data => {
-      dispatch.clima.setData(data);
+    socket.on('new-data', clima => {
+      dispatch.clima.setClima(clima);
     });
 
     return () => socket.disconnect();
