@@ -12,7 +12,7 @@ function convertDateToUsableString(date) {
 module.exports = async function index(req, res) {
   const today = convertDateToUsableString(new Date());
   const beginDate = convertDateToUsableString(
-    new Date(Date.now() - 1000 * 60 * 60 * 24 * 9) // 30 days
+    new Date(Date.now() - 1000 * 60 * 60 * 24 * 10) // 30 days
   );
 
   try {
@@ -57,7 +57,6 @@ function somatorioInflamabilidade(chuva, risco, riscoDiario) {
   } else {
     riscoDiario = 0;
   }
-  console.log('riscoDiario', riscoDiario);
   return riscoDiario;
 }
 
