@@ -12,7 +12,7 @@ function convertDateToUsableString(date) {
 module.exports = async function index(req, res) {
   const today = convertDateToUsableString(new Date());
   const beginDate = convertDateToUsableString(
-    new Date(Date.now() - 1000 * 60 * 60 * 24 * 1080) // 30 days
+    new Date(Date.now() - 1000 * 60 * 60 * 24 * 9) // 30 days
   );
 
   try {
@@ -26,30 +26,17 @@ module.exports = async function index(req, res) {
   }
 };
 
-function gete0(temp) {
-  return Math.pow(0.611, (17.27 * Number(temp)) / (Number(temp) + 237.3));
+function getTensaoMaximaVapor(tempAr) {
+  return 6.108 * Math.exp((17.3 * Number(tempAr)) / (Number(tempAr) + 237.3));
 }
 
-function getTensaoMaximaVapor(tempMin, tempMax) {
-  return (gete0(tempMin) + gete0(tempMax)) / 2;
+function getTensaoRealVapor(tempAr, umidRel) {
+  return (umidRel / 100) * getTensaoMaximaVapor(tempAr);
 }
 
-function getTensaoRealVapor(tempMin, tempMax, umidMin, umidMax) {
-  return (
-    ((gete0(tempMin) * umidMax) / 100 + (gete0(tempMax) * umidMin) / 100) / 2
-  );
-}
-
-function getIndiceInflamabilidade({
-  TEM_INS: tempAr,
-  TEM_MIN: tempMin,
-  TEM_MAX: tempMax,
-  UMD_MIN: umidMin,
-  UMD_MAX: umidMax
-}) {
+function getIndiceInflamabilidade({ TEM_INS: tempAr, UMD_INS: umidRel }) {
   const deficitSaturacao =
-    getTensaoMaximaVapor(tempMin, tempMax) -
-    getTensaoRealVapor(tempMin, tempMax, umidMin, umidMax);
+    getTensaoMaximaVapor(tempAr) - getTensaoRealVapor(tempAr, umidRel);
   const indiceInflamabilidade = deficitSaturacao * tempAr;
   return indiceInflamabilidade;
 }
@@ -70,6 +57,7 @@ function somatorioInflamabilidade(chuva, risco, riscoDiario) {
   } else {
     riscoDiario = 0;
   }
+  console.log('riscoDiario', riscoDiario);
   return riscoDiario;
 }
 
@@ -90,7 +78,7 @@ function risco(indice) {
 function riscoSomado(data) {
   let riscoAcumulado = 0;
   for (day of data) {
-    const hour = day.length >= 13 ? day[13] : day[day.length - 1];
+    const hour = day.length >= 16 ? day[16] : day[day.length - 1];
     riscoAcumulado = somatorioInflamabilidade(
       hour.CHUVA,
       getIndiceInflamabilidade(hour),
