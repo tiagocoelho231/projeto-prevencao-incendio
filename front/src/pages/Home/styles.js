@@ -52,7 +52,9 @@ export const Content1 = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: ${px2rem(400)};
+  @media screen and (min-width: 998px){
+    max-width: ${px2rem(400)};
+  }
   div {
     display: flex;
     align-items: center;
@@ -84,7 +86,9 @@ export const Content1 = styled.div`
 `;
 
 export const Content2 = styled.div`
-  max-width: ${px2rem(420)};
+  @media screen and (min-width: 998px){
+    max-width: ${px2rem(420)};
+  }
   display: flex;
   flex-direction: column;
   ul {
@@ -109,7 +113,9 @@ export const Content2 = styled.div`
 `;
 
 export const Content3 = styled.div`
-  max-width: ${px2rem(350)};
+  @media screen and (min-width: 998px){
+    max-width: ${px2rem(350)};
+  }
   @media screen and (max-width: 997px){
     margin-top: ${px2rem(50)};
   }

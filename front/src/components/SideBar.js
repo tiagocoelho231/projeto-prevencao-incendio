@@ -79,6 +79,7 @@ const MenuList = styled.ul`
       font-weight: 500;
       padding: ${px2rem(20)};
       @media screen and (max-width: 997px){
+        font-size: 24px;
         padding-left: 50px;
       }
     }
