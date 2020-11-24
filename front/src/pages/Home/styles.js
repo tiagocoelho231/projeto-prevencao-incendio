@@ -4,7 +4,7 @@ import { px2rem } from '../../util';
 
 
 export const Content = styled.main`
-  padding: ${px2rem(170)} ${px2rem(100)};
+  padding: ${px2rem(170)} ${px2rem(50)};
   a {
     display: block;
     font-size: ${px2rem(16)};
@@ -18,9 +18,14 @@ export const Content = styled.main`
 `;
 
 export const Weather = styled.div`
+  max-width: ${px2rem(1000)};
   width: 100%;
   display: flex;
   justify-content: space-between;
+  margin: 0 auto;
+  @media screen and (max-width: 997px){
+    flex-direction: column;
+  }
   > div {
     width: 100%;
     display: flex;
@@ -105,6 +110,9 @@ export const Content2 = styled.div`
 
 export const Content3 = styled.div`
   max-width: ${px2rem(350)};
+  @media screen and (max-width: 997px){
+    margin-top: ${px2rem(50)};
+  }
   ul {
     li {
       display: flex;
@@ -117,15 +125,15 @@ export const Content3 = styled.div`
 `;
 
 export const History = styled.div`
+  max-width: 1200px;
   height: ${px2rem(230)};
   display: flex;
   flex-direction: column;
-  margin-top: ${px2rem(50)};
+  margin: ${px2rem(50)} auto 0;
 
   h2 {
     color: rgb(0, 73, 131);
   }
-
   > div {
     height: 100%;
     display: flex;
@@ -163,22 +171,23 @@ export const History = styled.div`
         }
       }
     }
-    .info {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      max-width: ${px2rem(350)};
-      p {
-        color: #7a7a7a;
-        font-size: ${px2rem(16)};
-        text-align: center;
-      }
-      small {
-        color: #7a7a7a;
-        font-size: ${px2rem(14)};
-        text-align: center;
-        margin-top: ${px2rem(7)};
-      }
-    }
+  }
+`;
+
+export const Info = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: ${px2rem(350)};
+  p {
+    color: #7a7a7a;
+    font-size: ${px2rem(16)};
+    text-align: center;
+  }
+  small {
+    color: #7a7a7a;
+    font-size: ${px2rem(14)};
+    text-align: center;
+    margin-top: ${px2rem(7)};
   }
 `;

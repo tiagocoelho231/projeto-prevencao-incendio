@@ -2,12 +2,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { Map, Menu, Clima } from '../../components';
-import { Content, Content1, Content2, Content3, History, Weather } from './styles';
+import { Content, Content1, Content2, Content3, History, Weather, Info } from './styles';
 
 import IconRain from '../../assets/icon-rain.png';
-import Mapa1 from '../../assets/mapa-1.png';
-import Mapa2 from '../../assets/mapa-2.png';
-
 export default function Home() {
   const clima = useSelector(({ clima }) => clima);
 
@@ -54,7 +51,7 @@ export default function Home() {
           <a>Previsão pra hoje {'>'}</a>
         </Content1>
 
-        <Content2>
+        {/* <Content2>
           <h2>Registrados</h2>
           <ul>
             <li>
@@ -77,7 +74,7 @@ export default function Home() {
               <a href="#">Chuva agora {'>'}</a>
             </li>
           </ul>
-        </Content2>
+        </Content2> */}
 
         <Content3>
           <h2>Risco de incêndio</h2>
@@ -114,13 +111,13 @@ export default function Home() {
             <strong>Média mensal de chuva atingida até 08/11/2020</strong>
           </div>
 
-          <div className="info">
+          <Info>
             <p>Os dados representam o comportamento da chuva do mês</p>
             <small>
               "As médias climatológicas são valores calcdivados a partir de uma
               série de dados de 30 anos
             </small>
-          </div>
+          </Info>
         </div>
       </History>
     </Content>
