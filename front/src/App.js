@@ -8,14 +8,14 @@ import {
 } from 'react-router-dom';
 import socketIOClient from 'socket.io-client';
 import { endpoint } from './config';
-import { Home, Login } from './pages';
+import { Home, Login, Clima } from './pages';
 import Notification from './pages/Notification';
 import SideBar from './components/SideBar';
 import styled from 'styled-components';
 
 const PageWrapper = styled.div`
   display: flex;
-  height: 100vh;
+  /* height: 100vh; */
   width: 100%;
 `;
 
@@ -42,15 +42,16 @@ export default function App() {
   return (
     <Router>
       <PageWrapper>
-        <SideBar />
-        <ScrollToTop elementRef={scrollableWrapperRef} />
-        <ScrollableWrapper ref={scrollableWrapperRef}>
+        {/* <SideBar /> 
+          <ScrollToTop elementRef={scrollableWrapperRef} />
+          <ScrollableWrapper ref={scrollableWrapperRef}> */}
           <Switch>
+            <Route path="/Clima" component={Clima} />
             <Route path="/login" component={Login} />
             <Route path="/notificacao" component={Notification} />
             <Route path="/" component={Home} />
           </Switch>
-        </ScrollableWrapper>
+        {/* </ScrollableWrapper> */}
       </PageWrapper>
     </Router>
   );
