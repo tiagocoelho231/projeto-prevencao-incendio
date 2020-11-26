@@ -134,21 +134,9 @@ export default function SideBar() {
             </Link>
           </li>
           <li>
-            <Link to="/" onClick={() => {setMenuActive(false)}}>
-              <IconLocation />
-              Mapa
-            </Link>
-          </li>
-          <li>
             <Link to="/notificacao" onClick={() => {setMenuActive(false)}}>
               <IconWarning />
               Notificações
-            </Link>
-          </li>
-          <li>
-            <Link to="/" onClick={() => {setMenuActive(false)}}>
-              <IconInfo />
-              Sobre a Aplicação
             </Link>
           </li>
         </MenuList>

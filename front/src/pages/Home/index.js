@@ -24,12 +24,6 @@ export default function Home() {
           </div>
           <ul>
             <li>
-              <p className="bold">Muitas nuvens</p>
-              <p>
-                <span>Sensação - 24°</span>
-              </p>
-            </li>
-            <li>
               <p>
                 <strong className="uppercase">Vento</strong>
               </p>
