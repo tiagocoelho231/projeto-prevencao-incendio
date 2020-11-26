@@ -4,7 +4,6 @@ import { px2rem } from '../../util';
 
 export const Container = styled.div`
   color: white;
-  height: 100vh;
   width: 100%;
   background: linear-gradient(to bottom, rgb(43,50,178) 0%, rgb(20,136,204) 100%);
   background-repeat: no-repeat;
@@ -42,21 +41,20 @@ export const CurrentTemperature = styled.div`
     flex-grow: 1.25;
     text-align: center;
     img{
-      width: ${px2rem(168)};
+      width: ${px2rem(158)};
     }
   }
   .temperature-wrapper{
     flex-grow: 1;
     text-align: center;
+    padding: 0 ${px2rem(25)};
     strong{
       font-size: ${px2rem(92)};
       font-weight: 300;
     }
     p{
-      margin-top: ${px2rem(-9)};
-      margin-left: ${px2rem(-12)};
       text-align: center;
-      font-size: ${px2rem(20)};
+      font-size: ${px2rem(16)};
     }
   }
 `;
@@ -99,6 +97,7 @@ export const TodayWeather = styled.div`
     color: rgba(255,255,255,0.8);
     font-size: ${px2rem(18)};
     font-weight: normal;
+    margin-bottom: ${px2rem(8)};
     @media screen and (min-width: 768px) {
       font-size: ${px2rem(20)};
     }
@@ -107,16 +106,23 @@ export const TodayWeather = styled.div`
     display: flex;
     justify-content: space-between;
     >div{
-      padding: ${px2rem(17)} 0;
-      width: 13%;
+      padding: ${px2rem(17)} ${px2rem(12)};
+      width: 32%;
       border-radius: 5px;
       background-color: rgba(0,0,0,0.15);
-      font-size: ${px2rem(20)};
       text-align: center;
       strong{
         display: block;
         font-weight: 300;
         margin-bottom: ${px2rem(10)};
+        font-size: ${px2rem(20)};
+      }
+      img{
+        margin: 0 auto;
+        margin-bottom: ${px2rem(13)};
+      }
+      p{
+        font-size: ${px2rem(16)};
       }
     }
   }
@@ -129,6 +135,7 @@ export const WeekWeather = styled.div`
     color: rgba(255,255,255,0.8);
     font-size: ${px2rem(18)};
     font-weight: normal;
+    margin-bottom: ${px2rem(8)};
     @media screen and (min-width: 768px) {
       font-size: ${px2rem(20)};
     }
@@ -147,11 +154,24 @@ export const WeekWeather = styled.div`
       background-color: rgba(0,0,0,0.20);
       font-size: ${px2rem(21)};
       text-align: center;
-      strong{
-        width: 33.33333%;
-        @media screen and (min-width: 450px) {
-          width: 16.666666%;
+      margin-bottom: ${px2rem(12)};
+      >div{
+        @media screen and (max-width: 600px) {
+          width: 50%;
           margin-bottom: initial;
+          strong{
+            font-size: 18px;
+          }
+          img{
+            margin: 0 auto;
+            width: 80px;
+          }
+        }
+        @media screen and (min-width: 601px){
+          &:first-of-type{
+            width: 100%;
+            max-width: 200px;
+          }
         }
       }
       p{
