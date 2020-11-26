@@ -16,10 +16,19 @@ module.exports = async function index(req, res) {
   );
 
   try {
-    let { data } = await axios.get(
+    let { data: hourlyData } = await axios.get(
       `https://apitempo.inmet.gov.br/estacao/${beginDate}/${today}/A553`
     );
-    res.json(parseData(data));
+    let { data: daily } = await axios.get(
+      `https://apitempo.inmet.gov.br/estacao/diaria/${beginDate}/${today}/A553`
+    );
+    let i = 0,
+      hourly = [];
+    while (hourlyData.length > 0) {
+      hourly.push(hourlyData.splice(i * 24, 24));
+    }
+
+    res.json(parseData({ daily, hourly }));
   } catch (error) {
     console.error('error', error);
     res.status(400).send(error);
@@ -27,11 +36,11 @@ module.exports = async function index(req, res) {
 };
 
 function getTensaoMaximaVapor(tempAr) {
-  return 6.108 * Math.exp((17.3 * Number(tempAr)) / (Number(tempAr) + 237.3));
+  return 6.112 * Math.exp((17.67 * Number(tempAr)) / (Number(tempAr) + 243.5));
 }
 
 function getTensaoRealVapor(tempAr, umidRel) {
-  return (umidRel / 100) * getTensaoMaximaVapor(tempAr);
+  return (1 - umidRel / 100) * getTensaoMaximaVapor(tempAr);
 }
 
 function getIndiceInflamabilidade({ TEM_INS: tempAr, UMD_INS: umidRel }) {
@@ -46,13 +55,13 @@ function somatorioInflamabilidade(chuva, risco, riscoDiario) {
     chuva = 0;
   }
   chuva = Number(chuva);
-  if (chuva < 2) {
+  if (chuva <= 2) {
     riscoDiario += risco;
-  } else if (chuva < 5) {
+  } else if (chuva <= 5) {
     riscoDiario = riscoDiario * 0.75 + risco;
-  } else if (chuva < 8) {
+  } else if (chuva <= 8) {
     riscoDiario = riscoDiario * 0.5 + risco;
-  } else if (chuva < 10) {
+  } else if (chuva <= 10) {
     riscoDiario = risco;
   } else {
     riscoDiario = 0;
@@ -76,35 +85,35 @@ function risco(indice) {
 
 function riscoSomado(data) {
   let riscoAcumulado = 0;
-  for (day of data) {
+  data.hourly.forEach((day, index) => {
     const hour = day.length >= 16 ? day[16] : day[day.length - 1];
     riscoAcumulado = somatorioInflamabilidade(
-      hour.CHUVA,
+      data.daily[index].CHUVA,
       getIndiceInflamabilidade(hour),
       riscoAcumulado
     );
-  }
-
+  });
   return risco(riscoAcumulado);
 }
 
 function parseData(apiData) {
-  let i = 0,
-    splitData = [];
-  while (apiData.length > 0) {
-    splitData.push(apiData.splice(i * 24, 24));
-  }
-
-  splitData[splitData.length - 1] = splitData[splitData.length - 1].filter(
-    hour => hour.TEM_INS
-  );
+  apiData.hourly[apiData.hourly.length - 1] = apiData.hourly[
+    apiData.hourly.length - 1
+  ].filter(hour => hour.TEM_INS);
 
   const now =
-    splitData[splitData.length - 1][splitData[splitData.length - 1].length - 1];
+    apiData.hourly[apiData.hourly.length - 1][
+      apiData.hourly[apiData.hourly.length - 1].length - 1
+    ];
+
+  const dataWithoutToday = {
+    daily: apiData.daily.slice(0, apiData.daily.length - 1),
+    hourly: apiData.hourly.slice(0, apiData.hourly.length - 1)
+  };
 
   const data = {
-    fireRisk: riscoSomado(splitData),
-    yesterdayFireRisk: riscoSomado(splitData.slice(0, splitData.length - 1)),
+    fireRisk: riscoSomado(apiData),
+    yesterdayFireRisk: riscoSomado(dataWithoutToday),
     temperature: now.TEM_INS,
     windSpeed: now.VEN_VEL,
     humidity: now.UMD_INS,
