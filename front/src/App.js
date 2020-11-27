@@ -9,7 +9,6 @@ import {
 import socketIOClient from 'socket.io-client';
 import { endpoint } from './config';
 import { Home, Login, Clima } from './pages';
-import Notification from './pages/Notification';
 import SideBar from './components/SideBar';
 import styled from 'styled-components';
 
@@ -48,7 +47,6 @@ export default function App() {
           <Switch>
             <Route path="/Clima" component={Clima} />
             <Route path="/login" component={Login} />
-            <Route path="/notificacao" component={Notification} />
             <Route path="/" component={Home} />
           </Switch>
         {/* </ScrollableWrapper> */}

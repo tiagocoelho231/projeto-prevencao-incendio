@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { API } from '../../config';
 
 import { Container, Content, LocationDate, CurrentTemperature, CurrentStats, TodayWeather, WeekWeather } from './styles';
 
@@ -9,10 +10,23 @@ export default function Clima(){
 
   useEffect(() => {
     async function fetchData() {
-      const result = await axios.get('https://apiprevmet3.inmet.gov.br/previsao/3136306');
-      setData(Object.values(Object.values(result.data)[0]));
-      setDays(Object.keys(Object.values(result.data)[0]));
+      try {
+        const result = await axios.get('https://apiprevmet3.inmet.gov.br/previsao/3136306');
+        setData(Object.values(Object.values(result.data)[0]));
+        setDays(Object.keys(Object.values(result.data)[0]));
+      } catch (error) {
+        console.error(error);
+      }
     }
+    let getWeather = async () => {
+      try {
+        const { data } = await API.get('/clima');
+        console.log('data', data);// setWeather(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getWeather();
     fetchData();
   }, [])
 
@@ -83,7 +97,7 @@ export default function Clima(){
           <h2>Próximos 4 dias</h2>
           <div>
             {data && data.map((dia, key) => {
-              if(!key) return <></>
+              if(!key) return null;
               if(key === 1){
                 return(
                   <div key={key}>
