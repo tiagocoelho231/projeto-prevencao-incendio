@@ -116,6 +116,63 @@ export const CurrentStats = styled.div`
   }
 `;
 
+export const InfoFogo = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: ${px2rem(18)};
+  >div{
+    background-color: rgba(0,0,0,0.20);
+  }
+  div{
+    width: 49%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: ${px2rem(17)} 0;
+    >strong{
+      display: block;
+      text-align: center;
+      font-size: ${px2rem(25)};
+      font-weight: 300;
+      &:not(:first-of-type){
+        margin-top: ${px2rem(18)};
+      }
+      @media screen and (max-width: 550px) {
+        font-size: ${px2rem(18)};
+      }
+    }
+    >p{
+      text-align: center;
+      color: rgba(255,255,255,0.6);
+      @media screen and (max-width: 550px) {
+        font-size: ${px2rem(12)};
+      }
+    }
+    >div{
+      .baixo{
+        color: #16de3e;
+      }
+      .medio{
+        color: #ff9821;
+      }
+      .alto{
+        color: #de2828;
+      }
+      justify-content: center;
+      &:first-of-type{
+        height: 30%;
+      }
+      &:last-of-type{
+        height: 70%;
+        h1{
+          font-size: ${px2rem(50)};
+        }
+      }
+    }
+  }
+`;
 
 export const TodayWeather = styled.div`
   width: 100%;
@@ -133,7 +190,7 @@ export const TodayWeather = styled.div`
       flex-direction: column;
     }
     >div{
-      width: 49%;
+      width: 32%;
       text-align: center;
       background-color: rgba(0,0,0,0.15);
       border-radius: 5px;

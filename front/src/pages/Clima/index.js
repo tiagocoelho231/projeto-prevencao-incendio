@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { API } from '../../config';
 
-import { Container, Content, LocationDate, CurrentTemperature, CurrentStats, TodayWeather, WeekWeather } from './styles';
+import { Container, Content, LocationDate, CurrentTemperature, CurrentStats, TodayWeather, WeekWeather, InfoFogo } from './styles';
 
 export default function Clima(){
   const [days, setDays] = useState();
   const [weather, setWeather] = useState();
+  const [infoFire, setInfoFire] = useState();
 
   useEffect(() => {
     async function fetchData() {
@@ -23,6 +24,7 @@ export default function Clima(){
       try {
         const { data } = await API.get('/clima');
         console.log('Clima', data);
+        setInfoFire(data);
       } catch (error) {
         console.error(error);
       }
@@ -40,19 +42,15 @@ export default function Clima(){
           <div>{days && weather[0]?.tarde.dia_semana} {days && days[0]?.slice(0,5)}</div>
         </LocationDate>
 
-
         <CurrentTemperature>
           <div className="img-wrapper">
             <img src={weather && weather[0]?.tarde.icone} alt=""></img>
           </div>
           <div className="temperature-wrapper">
-            <span>Tarde</span>
-            <strong >{weather && (weather[0]?.tarde.temp_max + weather[0]?.tarde.temp_min)/2}&deg;</strong>
-            <p>{weather && weather[0]?.tarde.resumo}</p>
+            <span>Agora</span>
+            <strong >{infoFire && infoFire.temperature}&deg;</strong>
           </div>
         </CurrentTemperature>
-
-        
 
         <CurrentStats>
           <div>
@@ -75,6 +73,37 @@ export default function Clima(){
           </div>
         </CurrentStats>
 
+        <InfoFogo>
+          <div>
+            <div>
+              <strong>{infoFire && infoFire.humidity}</strong>
+              <p>Umidade</p>
+            </div>
+            <div>
+              <strong>{infoFire && infoFire.pressure}</strong>
+              <p>Pressão</p>
+            </div>
+            <div>
+              <strong>{infoFire && infoFire.windSpeed}km/h</strong>
+              <p>Vento</p>
+            </div>
+          </div>
+          <div>
+            <div>
+              <h2
+                className={`${infoFire.yesterdayFireRisk === "Baixo" ? "baixo" : infoFire.yesterdayFireRisk === "Médio" ? "medio" : "alto"}`}
+              >{infoFire && infoFire.yesterdayFireRisk}</h2>
+              <p>Risco de fogo ontem</p>
+            </div>
+            <div>
+              <h1
+                className={`${infoFire.FireRisk === "Baixo" ? "baixo" : infoFire.FireRisk === "Médio" ? "medio" : "alto"}`}
+              >{infoFire && infoFire.fireRisk}</h1>
+              <p>Risco de fogo hoje</p>
+            </div>
+          </div>
+        </InfoFogo>
+
         <TodayWeather>
           <h2>Clima hoje</h2>
           <div>
@@ -82,6 +111,11 @@ export default function Clima(){
               <strong>Manhã</strong>
               <img src={weather && weather[0]?.manha.icone} alt=""></img>
               <p>{weather && weather[0]?.manha.resumo}</p>
+            </div>
+            <div>
+              <strong>Tarde</strong>
+              <img src={weather && weather[0]?.tarde.icone} alt=""></img>
+              <p>{weather && weather[0]?.tarde.resumo}</p>
             </div>
             <div>
               <strong>Noite</strong>
