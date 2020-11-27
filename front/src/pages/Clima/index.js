@@ -2,9 +2,18 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { API } from '../../config';
 
-import { Container, Content, LocationDate, CurrentTemperature, CurrentStats, TodayWeather, WeekWeather, InfoFogo } from './styles';
+import {
+  Container,
+  Content,
+  LocationDate,
+  CurrentTemperature,
+  CurrentStats,
+  TodayWeather,
+  WeekWeather,
+  InfoFogo
+} from './styles';
 
-export default function Clima(){
+export default function Clima() {
   const [days, setDays] = useState();
   const [weather, setWeather] = useState();
   const [infoFire, setInfoFire] = useState();
@@ -12,7 +21,9 @@ export default function Clima(){
   useEffect(() => {
     async function fetchData() {
       try {
-        const { data } = await axios.get('https://apiprevmet3.inmet.gov.br/previsao/3136306');
+        const { data } = await axios.get(
+          'https://apiprevmet3.inmet.gov.br/previsao/3136306'
+        );
         setWeather(Object.values(Object.values(data)[0]));
         setDays(Object.keys(Object.values(data)[0]));
         console.log('data', Object.values(Object.values(data)[0]));
@@ -31,34 +42,32 @@ export default function Clima(){
     };
     getWeather();
     fetchData();
-  }, [])
+  }, []);
 
-  function getRisk(risk){
+  function getRisk(risk) {
     switch (risk) {
       case 'Baixo':
-        return "baixo";
-        break;
+        return 'baixo';
       case 'Médio':
-        return "medio";
-        break;
+        return 'medio';
       case 'Alto':
-        return "alto";
-        break;
+        return 'alto';
       case 'Muito alto':
-        return "muito-alto";
-        break;
+        return 'muito-alto';
       default:
-        return "muito-alto";
-    }    
+        return 'muito-alto';
+    }
   }
 
-  return(
+  return (
     <Container>
       <Content>
-
         <LocationDate>
           <h1>João Pinheiro, MG</h1>
-          <div>{days && weather[0]?.tarde.dia_semana} {days && days[0]?.slice(0,5)}</div>
+          <div>
+            {days && weather[0]?.tarde.dia_semana}{' '}
+            {days && days[0]?.slice(0, 5)}
+          </div>
         </LocationDate>
 
         <CurrentTemperature>
@@ -67,15 +76,15 @@ export default function Clima(){
           </div>
           <div className="temperature-wrapper">
             <span>Agora</span>
-            <strong >{infoFire && infoFire.temperature}&deg;</strong>
+            <strong>{infoFire && infoFire.temperature + '°'}</strong>
           </div>
         </CurrentTemperature>
 
         <CurrentStats>
           <div>
-            <strong>{weather && weather[0]?.tarde.temp_min}&deg;</strong>
+            <strong>{weather && weather[0]?.tarde.temp_min + '°'}</strong>
             <p>Mínima</p>
-            <strong>{weather && weather[0]?.tarde.temp_max}&deg;</strong>
+            <strong>{weather && weather[0]?.tarde.temp_max + '°'}</strong>
             <p>Máxima</p>
           </div>
           <div>
@@ -103,21 +112,26 @@ export default function Clima(){
               <p>Pressão</p>
             </div>
             <div>
-              <strong>{infoFire && infoFire.windSpeed}km/h</strong>
+              <strong>{infoFire && infoFire.windSpeed + ' Km/h'}</strong>
               <p>Vento</p>
             </div>
           </div>
           <div>
             <div>
-              <h1
-                className={getRisk(infoFire.fireRisk)}
-              >{infoFire && infoFire.fireRisk}</h1>
+              {infoFire && (
+                <h1 className={getRisk(infoFire.fireRisk)}>
+                  {infoFire.fireRisk}
+                </h1>
+              )}
+
               <p>Risco de fogo hoje</p>
             </div>
             <div>
-              <h2
-                className={getRisk(infoFire.yesterdayFireRisk)}
-              >{infoFire && infoFire.yesterdayFireRisk}</h2>
+              {infoFire && (
+                <h2 className={getRisk(infoFire.yesterdayFireRisk)}>
+                  {infoFire.yesterdayFireRisk}
+                </h2>
+              )}
               <p>Risco de fogo ontem</p>
             </div>
           </div>
@@ -147,56 +161,56 @@ export default function Clima(){
         <WeekWeather>
           <h2>Próximos 4 dias</h2>
           <div>
-            {weather && weather.map((dia, key) => {
-              if(!key) return null;
-              if(key === 1){
-                return(
-                  <div key={key}>
-                    <div>
-                      <strong>{dia.tarde.dia_semana}</strong>
-                      <p>{days && days[key].slice(0,5)}</p>
+            {weather &&
+              weather.map((dia, key) => {
+                if (!key) return null;
+                if (key === 1) {
+                  return (
+                    <div key={key}>
+                      <div>
+                        <strong>{dia.tarde.dia_semana}</strong>
+                        <p>{days && days[key].slice(0, 5)}</p>
+                      </div>
+                      <div>
+                        <img src={dia.tarde.icone} alt="Sunny"></img>
+                        <p>{dia.tarde.resumo}</p>
+                      </div>
+                      <div>
+                        <strong>{dia.tarde.temp_min + '°'}</strong>
+                        <p>Min</p>
+                      </div>
+                      <div>
+                        <strong>{dia.tarde.temp_max + '°'}</strong>
+                        <p>Max</p>
+                      </div>
                     </div>
-                    <div>
-                      <img src={dia.tarde.icone} alt="Sunny"></img>
-                      <p>{dia.tarde.resumo}</p>
+                  );
+                } else {
+                  return (
+                    <div key={key}>
+                      <div>
+                        <strong>{dia.dia_semana}</strong>
+                        <p>{days && days[key].slice(0, 5)}</p>
+                      </div>
+                      <div className="icon">
+                        <img src={dia.icone} alt="Sunny"></img>
+                        <p>{dia.resumo}</p>
+                      </div>
+                      <div>
+                        <strong>{dia.temp_min + '°'}</strong>
+                        <p>Min</p>
+                      </div>
+                      <div>
+                        <strong>{dia.temp_max + '°'}</strong>
+                        <p>Max</p>
+                      </div>
                     </div>
-                    <div>
-                      <strong>{dia.tarde.temp_min}&deg;</strong>
-                      <p>Min</p>
-                    </div>
-                    <div>
-                      <strong>{dia.tarde.temp_max}&deg;</strong>
-                      <p>Max</p>
-                    </div>
-                  </div>
-                )
-              }else{
-                return(
-                  <div key={key}>
-                    <div>
-                      <strong>{dia.dia_semana}</strong>
-                      <p>{days && days[key].slice(0,5)}</p>
-                    </div>
-                    <div className="icon">
-                      <img src={dia.icone} alt="Sunny"></img>
-                      <p>{dia.resumo}</p>
-                    </div>
-                    <div>
-                      <strong>{dia.temp_min}&deg;</strong>
-                      <p>Min</p>
-                    </div>
-                    <div>
-                      <strong>{dia.temp_max}&deg;</strong>
-                      <p>Max</p>
-                    </div>
-                  </div>
-                )
-              }
-            })}
+                  );
+                }
+              })}
           </div>
         </WeekWeather>
-
       </Content>
     </Container>
-  )
+  );
 }
