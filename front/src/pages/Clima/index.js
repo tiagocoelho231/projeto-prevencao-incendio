@@ -5,15 +5,16 @@ import { API } from '../../config';
 import { Container, Content, LocationDate, CurrentTemperature, CurrentStats, TodayWeather, WeekWeather } from './styles';
 
 export default function Clima(){
-  const [data, setData] = useState();
   const [days, setDays] = useState();
+  const [weather, setWeather] = useState();
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const result = await axios.get('https://apiprevmet3.inmet.gov.br/previsao/3136306');
-        setData(Object.values(Object.values(result.data)[0]));
-        setDays(Object.keys(Object.values(result.data)[0]));
+        const { data } = await axios.get('https://apiprevmet3.inmet.gov.br/previsao/3136306');
+        setWeather(Object.values(Object.values(data)[0]));
+        setDays(Object.keys(Object.values(data)[0]));
+        console.log('data', Object.values(Object.values(data)[0]));
       } catch (error) {
         console.error(error);
       }
@@ -21,7 +22,7 @@ export default function Clima(){
     let getWeather = async () => {
       try {
         const { data } = await API.get('/clima');
-        console.log('data', data);
+        console.log('Clima', data);
       } catch (error) {
         console.error(error);
       }
@@ -36,38 +37,40 @@ export default function Clima(){
 
         <LocationDate>
           <h1>João Pinheiro, MG</h1>
-          <div>{days && data[0].manha.dia_semana} {days && days[0].slice(0,5)}</div>
+          <div>{days && weather[0]?.tarde.dia_semana} {days && days[0]?.slice(0,5)}</div>
         </LocationDate>
 
 
         <CurrentTemperature>
           <div className="img-wrapper">
-            <img src={data && data[0].manha.icone} alt=""></img>
+            <img src={weather && weather[0]?.tarde.icone} alt=""></img>
           </div>
           <div className="temperature-wrapper">
-            <strong >{data && (data[0].manha.temp_max + data[0].manha.temp_min)/2}&deg;</strong>
-            <p>{data && data[0].manha.resumo}</p>
+            <span>Tarde</span>
+            <strong >{weather && (weather[0]?.tarde.temp_max + weather[0]?.tarde.temp_min)/2}&deg;</strong>
+            <p>{weather && weather[0]?.tarde.resumo}</p>
           </div>
         </CurrentTemperature>
 
+        
 
         <CurrentStats>
           <div>
-            <strong>{data && data[0].tarde.temp_max}&deg;</strong>
-            <p>Máxima</p>
-            <strong>{data && data[0].tarde.temp_min}&deg;</strong>
+            <strong>{weather && weather[0]?.tarde.temp_min}&deg;</strong>
             <p>Mínima</p>
+            <strong>{weather && weather[0]?.tarde.temp_max}&deg;</strong>
+            <p>Máxima</p>
           </div>
           <div>
-            <strong>{data && data[0].tarde.int_vento}</strong>
-            <p>Ventos</p>
-            <strong>0%</strong>
-            <p>Chuva</p>
+            <strong>{weather && weather[0]?.tarde.temp_min_tende}</strong>
+            <p>Tendência temp mín</p>
+            <strong>{weather && weather[0]?.tarde.temp_max_tende}</strong>
+            <p>Tendência temp máx</p>
           </div>
           <div>
-            <strong>{data && data[0].tarde.umidade_max}</strong>
+            <strong>{weather && weather[0]?.tarde.umidade_max}</strong>
             <p>Umidade mín</p>
-            <strong>{data && data[0].tarde.umidade_min}</strong>
+            <strong>{weather && weather[0]?.tarde.umidade_min}</strong>
             <p>Umidade máx</p>
           </div>
         </CurrentStats>
@@ -77,18 +80,13 @@ export default function Clima(){
           <div>
             <div>
               <strong>Manhã</strong>
-              <img src={data && data[0].manha.icone} alt=""></img>
-              <p>{data && data[0].manha.resumo}</p>
-            </div>
-            <div>
-              <strong>Tarde</strong>
-              <img src={data && data[0].tarde.icone} alt=""></img>
-              <p>{data && data[0].tarde.resumo}</p>
+              <img src={weather && weather[0]?.manha.icone} alt=""></img>
+              <p>{weather && weather[0]?.manha.resumo}</p>
             </div>
             <div>
               <strong>Noite</strong>
-              <img src={data && data[0].noite.icone} alt=""></img>
-              <p>{data && data[0].noite.resumo}</p>
+              <img src={weather && weather[0]?.noite.icone} alt=""></img>
+              <p>{weather && weather[0]?.noite.resumo}</p>
             </div>
           </div>
         </TodayWeather>
@@ -96,25 +94,25 @@ export default function Clima(){
         <WeekWeather>
           <h2>Próximos 4 dias</h2>
           <div>
-            {data && data.map((dia, key) => {
+            {weather && weather.map((dia, key) => {
               if(!key) return null;
               if(key === 1){
                 return(
                   <div key={key}>
                     <div>
-                      <strong>{dia.manha.dia_semana}</strong>
+                      <strong>{dia.tarde.dia_semana}</strong>
                       <p>{days && days[key].slice(0,5)}</p>
                     </div>
                     <div>
-                      <img src={dia.manha.icone} alt="Sunny"></img>
+                      <img src={dia.tarde.icone} alt="Sunny"></img>
                     </div>
                     <div>
-                      <strong>10&deg;</strong>
-                      <p>Max</p>
-                    </div>
-                    <div>
-                      <strong>21&deg;</strong>
+                      <strong>{dia.tarde.temp_min}&deg;</strong>
                       <p>Min</p>
+                    </div>
+                    <div>
+                      <strong>{dia.tarde.temp_max}&deg;</strong>
+                      <p>Max</p>
                     </div>
                   </div>
                 )
@@ -129,12 +127,12 @@ export default function Clima(){
                       <img src={dia.icone} alt="Sunny"></img>
                     </div>
                     <div>
-                      <strong>10&deg;</strong>
-                      <p>Max</p>
+                      <strong>{dia.temp_min}&deg;</strong>
+                      <p>Min</p>
                     </div>
                     <div>
-                      <strong>21&deg;</strong>
-                      <p>Min</p>
+                      <strong>{dia.temp_max}&deg;</strong>
+                      <p>Max</p>
                     </div>
                   </div>
                 )

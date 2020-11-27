@@ -32,11 +32,12 @@ export const LocationDate = styled.div`
 `;
 
 export const CurrentTemperature = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-bottom: ${px2rem(12)};
   margin-top: ${px2rem(4)};
-  width: 100%;
   @media screen and (min-width: 998px) {
     width: 50%;
   }
@@ -51,9 +52,20 @@ export const CurrentTemperature = styled.div`
   .temperature-wrapper{
     text-align: center;
     padding: 0 ${px2rem(25)};
-    strong{
-      font-size: ${px2rem(92)};
+    span{
+      display: block;
+      font-size: ${px2rem(25)};
       font-weight: 300;
+      @media screen and (max-width: 550px) {
+        font-size: ${px2rem(20)};
+      }
+    }
+    strong{
+      display: block;
+      font-size: ${px2rem(70)};
+      font-weight: 300;
+      line-height: 1;
+      margin-top: ${px2rem(5)};
       @media screen and (max-width: 550px) {
         font-size: ${px2rem(40)};
       }
@@ -61,6 +73,10 @@ export const CurrentTemperature = styled.div`
     p{
       text-align: center;
       font-size: ${px2rem(16)};
+      margin-top: ${px2rem(8)};
+      @media screen and (max-width: 550px) {
+        font-size: ${px2rem(12)};
+      }
     }
   }
 `;
@@ -83,12 +99,20 @@ export const CurrentStats = styled.div`
   }
   strong{
     display: block;
+    text-align: center;
     margin-top: ${px2rem(18)};
     font-size: ${px2rem(25)};
     font-weight: 300;
+    @media screen and (max-width: 550px) {
+      font-size: ${px2rem(18)};
+    }
   }
   p{
+    text-align: center;
     color: rgba(255,255,255,0.6);
+    @media screen and (max-width: 550px) {
+      font-size: ${px2rem(12)};
+    }
   }
 `;
 
@@ -109,7 +133,7 @@ export const TodayWeather = styled.div`
       flex-direction: column;
     }
     >div{
-      width: 32%;
+      width: 49%;
       text-align: center;
       background-color: rgba(0,0,0,0.15);
       border-radius: 5px;
