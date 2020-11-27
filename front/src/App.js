@@ -45,9 +45,9 @@ export default function App() {
           <ScrollToTop elementRef={scrollableWrapperRef} />
           <ScrollableWrapper ref={scrollableWrapperRef}> */}
           <Switch>
-            <Route path="/Clima" component={Clima} />
-            <Route path="/login" component={Login} />
-            <Route path="/" component={Home} />
+            {/* <Route path="/Home" component={Home} />
+            <Route path="/login" component={Login} /> */}
+            <Route path="/" component={Clima} />
           </Switch>
         {/* </ScrollableWrapper> */}
       </PageWrapper>

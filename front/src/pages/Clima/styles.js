@@ -152,23 +152,26 @@ export const InfoFogo = styled.div`
     }
     >div{
       .baixo{
-        color: #16de3e;
+        color: #07cd56;
       }
       .medio{
-        color: #ff9821;
+        color: #fde101;
       }
       .alto{
-        color: #de2828;
+        color: #ff6d0d;
+      }
+      .muito-alto{
+        color: #fb003f;
       }
       justify-content: center;
       &:first-of-type{
-        height: 30%;
-      }
-      &:last-of-type{
-        height: 70%;
+        height: 60%;
         h1{
           font-size: ${px2rem(50)};
         }
+      }
+      &:last-of-type{
+        height: 40%;
       }
     }
   }

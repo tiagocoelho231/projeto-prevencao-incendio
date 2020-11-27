@@ -33,6 +33,25 @@ export default function Clima(){
     fetchData();
   }, [])
 
+  function getRisk(risk){
+    switch (risk) {
+      case 'Baixo':
+        return "baixo";
+        break;
+      case 'Médio':
+        return "medio";
+        break;
+      case 'Alto':
+        return "alto";
+        break;
+      case 'Muito alto':
+        return "muito-alto";
+        break;
+      default:
+        return "muito-alto";
+    }    
+  }
+
   return(
     <Container>
       <Content>
@@ -90,16 +109,16 @@ export default function Clima(){
           </div>
           <div>
             <div>
-              <h2
-                className={`${infoFire.yesterdayFireRisk === "Baixo" ? "baixo" : infoFire.yesterdayFireRisk === "Médio" ? "medio" : "alto"}`}
-              >{infoFire && infoFire.yesterdayFireRisk}</h2>
-              <p>Risco de fogo ontem</p>
-            </div>
-            <div>
               <h1
-                className={`${infoFire.FireRisk === "Baixo" ? "baixo" : infoFire.FireRisk === "Médio" ? "medio" : "alto"}`}
+                className={getRisk(infoFire.fireRisk)}
               >{infoFire && infoFire.fireRisk}</h1>
               <p>Risco de fogo hoje</p>
+            </div>
+            <div>
+              <h2
+                className={getRisk(infoFire.yesterdayFireRisk)}
+              >{infoFire && infoFire.yesterdayFireRisk}</h2>
+              <p>Risco de fogo ontem</p>
             </div>
           </div>
         </InfoFogo>
