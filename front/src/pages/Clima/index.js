@@ -139,6 +139,7 @@ export default function Clima(){
                     </div>
                     <div>
                       <img src={dia.tarde.icone} alt="Sunny"></img>
+                      <p>{dia.tarde.resumo}</p>
                     </div>
                     <div>
                       <strong>{dia.tarde.temp_min}&deg;</strong>
@@ -157,8 +158,9 @@ export default function Clima(){
                       <strong>{dia.dia_semana}</strong>
                       <p>{days && days[key].slice(0,5)}</p>
                     </div>
-                    <div>
+                    <div className="icon">
                       <img src={dia.icone} alt="Sunny"></img>
+                      <p>{dia.resumo}</p>
                     </div>
                     <div>
                       <strong>{dia.temp_min}&deg;</strong>
@@ -174,6 +176,7 @@ export default function Clima(){
             })}
           </div>
         </WeekWeather>
+
       </Content>
     </Container>
   )
