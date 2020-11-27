@@ -5,6 +5,7 @@ import { px2rem } from '../../util';
 export const Container = styled.div`
   color: white;
   width: 100%;
+  min-height: 100vh;
   background: linear-gradient(to bottom, rgb(43,50,178) 0%, rgb(20,136,204) 100%);
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -32,25 +33,30 @@ export const LocationDate = styled.div`
 
 export const CurrentTemperature = styled.div`
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-top: ${px2rem(4)};
   width: 100%;
-  @media screen and (min-width: 700px) {
+  @media screen and (min-width: 998px) {
     width: 50%;
   }
   .img-wrapper{
-    flex-grow: 1.25;
-    text-align: center;
     img{
       width: ${px2rem(158)};
+      @media screen and (max-width: 550px) {
+        width: ${px2rem(120)}; 
+      }
     }
   }
   .temperature-wrapper{
-    flex-grow: 1;
     text-align: center;
     padding: 0 ${px2rem(25)};
     strong{
       font-size: ${px2rem(92)};
       font-weight: 300;
+      @media screen and (max-width: 550px) {
+        font-size: ${px2rem(40)};
+      }
     }
     p{
       text-align: center;
@@ -67,7 +73,7 @@ export const CurrentStats = styled.div`
   border-top: 1px solid rgba(255,255,255,0.5);
   border-bottom: 1px solid rgba(255,255,255,0.5);
 
-  @media screen and (min-width: 700px) {
+  @media screen and (min-width: 998px) {
     width: 50%;
     margin-bottom: ${px2rem(18)};
     padding-bottom: 0;
@@ -88,29 +94,30 @@ export const CurrentStats = styled.div`
 
 
 export const TodayWeather = styled.div`
-  display: none;
   width: 100%;
-  @media screen and (min-width: 700px) {
-    display: block;
-  }
   h2{
     color: rgba(255,255,255,0.8);
-    font-size: ${px2rem(18)};
     font-weight: normal;
+    font-size: ${px2rem(20)};
     margin-bottom: ${px2rem(8)};
-    @media screen and (min-width: 768px) {
-      font-size: ${px2rem(20)};
-    }
+    margin-top: ${px2rem(20)};
   }
   >div{
     display: flex;
     justify-content: space-between;
+    @media screen and (max-width: 997px) {
+      flex-direction: column;
+    }
     >div{
-      padding: ${px2rem(17)} ${px2rem(12)};
       width: 32%;
-      border-radius: 5px;
-      background-color: rgba(0,0,0,0.15);
       text-align: center;
+      background-color: rgba(0,0,0,0.15);
+      border-radius: 5px;
+      padding: ${px2rem(17)} ${px2rem(12)};
+      @media screen and (max-width: 997px) {
+        width: 100%;
+        margin-bottom: 12px;
+      }
       strong{
         display: block;
         font-weight: 300;
@@ -133,12 +140,10 @@ export const WeekWeather = styled.div`
   margin-top: 1em;
   h2{
     color: rgba(255,255,255,0.8);
-    font-size: ${px2rem(18)};
+    font-size: ${px2rem(20)};
     font-weight: normal;
     margin-bottom: ${px2rem(8)};
-    @media screen and (min-width: 768px) {
-      font-size: ${px2rem(20)};
-    }
+    margin-top: ${px2rem(20)};
   }
   >div{
     display: flex;

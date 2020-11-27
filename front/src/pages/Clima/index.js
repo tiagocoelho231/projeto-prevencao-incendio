@@ -21,7 +21,7 @@ export default function Clima(){
     let getWeather = async () => {
       try {
         const { data } = await API.get('/clima');
-        console.log('data', data);// setWeather(data);
+        console.log('data', data);
       } catch (error) {
         console.error(error);
       }
