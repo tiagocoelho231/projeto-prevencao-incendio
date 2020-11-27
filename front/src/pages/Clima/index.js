@@ -110,13 +110,13 @@ export default function Clima(){
           <div>
             <div>
               <h1
-                className={getRisk(infoFire.fireRisk)}
+                className={infoFire && getRisk(infoFire.fireRisk)}
               >{infoFire && infoFire.fireRisk}</h1>
               <p>Risco de fogo hoje</p>
             </div>
             <div>
               <h2
-                className={getRisk(infoFire.yesterdayFireRisk)}
+                className={infoFire && getRisk(infoFire.yesterdayFireRisk)}
               >{infoFire && infoFire.yesterdayFireRisk}</h2>
               <p>Risco de fogo ontem</p>
             </div>
