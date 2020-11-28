@@ -124,7 +124,7 @@ export default function Clima() {
                 </h1>
               )}
 
-              <p>Risco de fogo hoje</p>
+              <p>Risco de incêndio hoje</p>
             </div>
             <div>
               {infoFire && (
@@ -132,7 +132,7 @@ export default function Clima() {
                   {infoFire.yesterdayFireRisk}
                 </h2>
               )}
-              <p>Risco de fogo ontem</p>
+              <p>Risco de incêndio ontem</p>
             </div>
           </div>
         </InfoFogo>
@@ -172,7 +172,7 @@ export default function Clima() {
                         <p>{days && days[key].slice(0, 5)}</p>
                       </div>
                       <div>
-                        <img src={dia.tarde.icone} alt="Sunny"></img>
+                        <img src={dia.tarde.icone} alt=""></img>
                         <p>{dia.tarde.resumo}</p>
                       </div>
                       <div>
@@ -193,7 +193,7 @@ export default function Clima() {
                         <p>{days && days[key].slice(0, 5)}</p>
                       </div>
                       <div className="icon">
-                        <img src={dia.icone} alt="Sunny"></img>
+                        <img src={dia.icone} alt=""></img>
                         <p>{dia.resumo}</p>
                       </div>
                       <div>

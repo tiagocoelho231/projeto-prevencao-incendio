@@ -13,38 +13,47 @@ export const Container = styled.div`
   );
   background-repeat: no-repeat;
   background-attachment: fixed;
-  padding: 20px;
+  padding: 20px 20px 0;
 `;
 
 export const Content = styled.div`
   display: flex;
   flex-wrap: wrap;
-  @media screen and (min-width: 920px) {
-    width: 880px;
-    font-size: 1.1em;
-    margin: 8px auto;
+  margin: 0 auto;
+  max-width: 1200px;
+
+  @media screen and (min-width: 998px) {
+    font-size: ${px2rem(20)};
+  }
+
+  @media screen and (max-width: 997px) {
+    font-size: ${px2rem(16)};
   }
 `;
 
 export const LocationDate = styled.div`
+  margin-bottom: 20px;
   width: 100%;
   h1 {
-    margin: 0;
     font-size: ${px2rem(32)};
     font-weight: 600;
   }
 `;
 
 export const CurrentTemperature = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding-bottom: ${px2rem(12)};
+  display: flex;
+  justify-content: center;
   margin-top: ${px2rem(4)};
+  padding-bottom: ${px2rem(12)};
   @media screen and (min-width: 998px) {
     width: 50%;
   }
+
+  @media screen and (max-width: 997px) {
+    width: 100%;
+  }
+
   .img-wrapper {
     img {
       width: ${px2rem(158)};
@@ -76,18 +85,14 @@ export const CurrentTemperature = styled.div`
     }
     p {
       text-align: center;
-      font-size: ${px2rem(16)};
       margin-top: ${px2rem(8)};
-      @media screen and (max-width: 550px) {
-        font-size: ${px2rem(12)};
-      }
     }
   }
 `;
 
 export const CurrentStats = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   padding-bottom: ${px2rem(18)};
   width: 100%;
   border-top: 1px solid rgba(255, 255, 255, 0.5);
@@ -101,6 +106,11 @@ export const CurrentStats = styled.div`
     border-bottom: none;
     border-left: 1px solid rgba(255, 255, 255, 0.5);
   }
+
+  > div {
+    padding: 0 10px;
+  }
+
   strong {
     display: block;
     text-align: center;
@@ -112,20 +122,22 @@ export const CurrentStats = styled.div`
       font-size: ${px2rem(18)};
     }
   }
+
   p {
     text-align: center;
     color: rgba(255, 255, 255, 0.6);
-    @media screen and (max-width: 550px) {
-      font-size: ${px2rem(12)};
-    }
+  }
+
+  @media screen and (max-width: 430px) {
+    flex-direction: column;
   }
 `;
 
 export const InfoFogo = styled.div`
+  display: grid;
+  gap: ${px2rem(20)};
+  padding: 20px 0;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin-top: ${px2rem(18)};
   > div {
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 5px;
@@ -134,8 +146,8 @@ export const InfoFogo = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    padding: ${px2rem(17)} 0;
+    justify-content: space-around;
+    padding: ${px2rem(17)};
     > strong {
       display: block;
       text-align: center;
@@ -151,9 +163,6 @@ export const InfoFogo = styled.div`
     > p {
       text-align: center;
       color: rgba(255, 255, 255, 0.6);
-      @media screen and (max-width: 550px) {
-        font-size: ${px2rem(12)};
-      }
     }
     > div {
       .baixo {
@@ -170,61 +179,49 @@ export const InfoFogo = styled.div`
       }
       justify-content: center;
       &:first-of-type {
-        height: 60%;
         h1 {
           font-size: ${px2rem(50)};
         }
       }
-      &:last-of-type {
-        height: 40%;
-      }
     }
   }
 
-  @media screen and (min-width: 998px) {
-    > div {
-      width: 49%;
-    }
+  @media screen and (min-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   @media screen and (max-width: 997px) {
-    flex-direction: column;
-
-    > div {
-      &:not(:last-of-type) {
-        margin-bottom: 12px;
-      }
-    }
   }
 `;
 
 export const TodayWeather = styled.div`
+  padding: 20px 0;
   width: 100%;
   h2 {
     color: rgba(255, 255, 255, 0.8);
     font-weight: normal;
     font-size: ${px2rem(20)};
     margin-bottom: ${px2rem(8)};
-    margin-top: ${px2rem(20)};
   }
   > div {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    gap: ${px2rem(20)};
+
+    @media screen and (min-width: 900px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
     @media screen and (max-width: 997px) {
       flex-direction: column;
     }
+
     > div {
-      width: 32%;
       text-align: center;
       background-color: rgba(0, 0, 0, 0.15);
       border-radius: 5px;
       padding: ${px2rem(17)} ${px2rem(12)};
       @media screen and (max-width: 997px) {
         width: 100%;
-
-        &:not(:last-of-type) {
-          margin-bottom: 12px;
-        }
       }
       strong {
         display: block;
@@ -236,45 +233,42 @@ export const TodayWeather = styled.div`
         margin: 0 auto;
         margin-bottom: ${px2rem(13)};
       }
-      p {
-        font-size: ${px2rem(16)};
-      }
     }
   }
 `;
 
 export const WeekWeather = styled.div`
+  padding: 20px 0;
   width: 100%;
-  margin-top: 1em;
   h2 {
     color: rgba(255, 255, 255, 0.8);
     font-size: ${px2rem(20)};
     font-weight: normal;
     margin-bottom: ${px2rem(8)};
-    margin-top: ${px2rem(20)};
   }
   > div {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    gap: ${px2rem(20)};
+
     > div {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-gap: ${px2rem(20)};
       justify-content: space-around;
+      justify-items: center;
       align-items: center;
-      padding: ${px2rem(17)} 0;
+      padding: ${px2rem(17)};
       width: 100%;
       border-radius: 5px;
       background-color: rgba(0, 0, 0, 0.2);
       font-size: ${px2rem(21)};
       text-align: center;
 
-      &:not(:last-of-type) {
-        margin-bottom: ${px2rem(12)};
-      }
-
       > div {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+
         @media screen and (max-width: 600px) {
-          width: 50%;
           margin-bottom: initial;
           strong {
             font-size: 18px;
@@ -284,16 +278,25 @@ export const WeekWeather = styled.div`
             width: 80px;
           }
         }
-        @media screen and (min-width: 601px) {
-          &:first-of-type {
-            width: 100%;
-            max-width: 200px;
-          }
-        }
       }
       p {
         color: rgba(255, 255, 255, 0.6);
-        font-size: ${px2rem(16)};
+      }
+
+      @media screen and (min-width: 751px) {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      @media screen and (max-width: 750px) and (min-width: 361px) {
+        grid-template-columns: repeat(2, 1fr);
+
+        strong {
+          font-size: 18px;
+        }
+        img {
+          margin: 0 auto;
+          width: 80px;
+        }
       }
     }
   }
