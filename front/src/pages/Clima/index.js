@@ -76,15 +76,15 @@ export default function Clima() {
           </div>
           <div className="temperature-wrapper">
             <span>Agora</span>
-            <strong>{infoFire && infoFire.temperature + '°'}</strong>
+            <strong>{infoFire && infoFire.temperature + '°C'}</strong>
           </div>
         </CurrentTemperature>
 
         <CurrentStats>
           <div>
-            <strong>{weather && weather[0]?.tarde.temp_min + '°'}</strong>
+            <strong>{weather && weather[0]?.tarde.temp_min + '°C'}</strong>
             <p>Mínima</p>
-            <strong>{weather && weather[0]?.tarde.temp_max + '°'}</strong>
+            <strong>{weather && weather[0]?.tarde.temp_max + '°C'}</strong>
             <p>Máxima</p>
           </div>
           <div>
@@ -94,9 +94,9 @@ export default function Clima() {
             <p>Tendência temp máx</p>
           </div>
           <div>
-            <strong>{weather && weather[0]?.tarde.umidade_max}</strong>
+            <strong>{weather && weather[0]?.tarde.umidade_max + '%'}</strong>
             <p>Umidade mín</p>
-            <strong>{weather && weather[0]?.tarde.umidade_min}</strong>
+            <strong>{weather && weather[0]?.tarde.umidade_min + '%'}</strong>
             <p>Umidade máx</p>
           </div>
         </CurrentStats>
@@ -104,15 +104,15 @@ export default function Clima() {
         <InfoFogo>
           <div>
             <div>
-              <strong>{infoFire && infoFire.humidity}</strong>
+              <strong>{infoFire && infoFire.humidity + '%'}</strong>
               <p>Umidade</p>
             </div>
             <div>
-              <strong>{infoFire && infoFire.pressure}</strong>
+              <strong>{infoFire && infoFire.pressure + ' mbar'}</strong>
               <p>Pressão</p>
             </div>
             <div>
-              <strong>{infoFire && infoFire.windSpeed + ' Km/h'}</strong>
+              <strong>{infoFire && infoFire.windSpeed + ' km/h'}</strong>
               <p>Vento</p>
             </div>
           </div>
